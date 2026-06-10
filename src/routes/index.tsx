@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Super AI Feed 1.2 — Instant Design Studio" },
       { name: "description", content: "Generate desain iklan profesional untuk feed, ads, dan branding dalam hitungan detik. Tanpa designer, tanpa langganan." },
-      { property: "og:title", content: "Super AI Feed 1.2 — Early Access Rp 50.000" },
+      { property: "og:title", content: "Super AI Feed 1.2 — Early Access Rp 49.000" },
       { property: "og:description", content: "10 mode kreatif, 48+ kategori, sekali bayar selamanya." },
     ],
   }),
@@ -111,7 +111,7 @@ function Hero() {
               href={CHECKOUT_URL}
               className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition"
             >
-              Ambil Early Access — Rp 50.000
+              Ambil Early Access — Rp 49.000
             </a>
             <a
               href="#showcase"
@@ -525,7 +525,7 @@ function Pricing() {
                 <span className="font-mono text-[10px] text-muted-foreground tracking-widest">HARGA NORMAL</span>
               </div>
               <div className="mt-2 flex items-baseline gap-3">
-                <span className="text-6xl font-semibold tracking-tight">Rp 50.000</span>
+                <span className="text-6xl font-semibold tracking-tight">Rp 49.000</span>
                 <span className="text-sm text-muted-foreground">sekali bayar · selamanya</span>
               </div>
               <div className="mt-1 font-mono text-[10px] tracking-widest text-hi">
@@ -564,7 +564,7 @@ function FAQ() {
     ["Apa bedanya Super AI Feed 1.2 dengan Canva atau Photoshop?", "Canva dan Photoshop adalah editor — kamu harus tahu desain dulu. Super AI Feed 1.2 adalah studio otomatis — kamu cukup isi brief, hasilnya langsung jadi visual siap upload tanpa edit manual."],
     ["Apakah saya butuh skill desain untuk pakai ini?", "Tidak. Cukup pilih kategori industri, isi nama produk, pilih warna brand — selebihnya engine yang kerjain."],
     ["Format dan rasio apa saja yang bisa dihasilkan?", "Feed 1:1, story/reels 9:16, thumbnail YouTube 16:9, dan typography ads 4:5."],
-    ["Apakah ada biaya bulanan?", "Tidak. Sekali bayar Rp 50.000 (selama early access)."],
+    ["Apakah ada biaya bulanan?", "Tidak. Sekali bayar Rp 49.000 (selama early access)."],
     ["Apakah saya dapat update mode baru di masa depan?", "Iya. Semua mode dan kategori baru akan otomatis tersedia tanpa biaya tambahan."],
     ["Bagaimana cara akses setelah bayar?", "Setelah pembayaran terkonfirmasi, kamu akan menerima email berisi akses masuk ke studio."],
     ["Berapa banyak design yang bisa saya hasilkan?", "Unlimited. Tidak ada quota, tidak ada throttle per hari."],
@@ -625,7 +625,7 @@ function Closing() {
           href={CHECKOUT_URL}
           className="mt-10 inline-flex items-center gap-2 rounded-xl bg-hi text-primary-foreground px-8 py-5 text-lg font-semibold glow-lime hover:translate-y-[-1px] transition"
         >
-          Bayar Rp 50.000 — Akses Selamanya
+          Bayar Rp 49.000 — Akses Selamanya
         </a>
         <div className="mt-4 font-mono text-[10px] tracking-widest text-muted-foreground">
           AKSES INSTAN SETELAH PEMBAYARAN · SELAMANYA
@@ -709,7 +709,7 @@ function SalesPing() {
         <div className="w-9 h-9 rounded-lg bg-hi/15 border border-hi/30 flex items-center justify-center text-hi">✓</div>
         <div>
           <div className="text-sm font-medium">{pings[idx]}</div>
-          <div className="font-mono text-[10px] text-muted-foreground tracking-widest">MEMBELI · VERIFIED BY MAYAR</div>
+          <div className="font-mono text-[10px] text-muted-foreground tracking-widest">MEMBELI · VIA @Irfansnagjuara</div>
         </div>
       </div>
     </div>
