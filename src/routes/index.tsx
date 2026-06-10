@@ -21,7 +21,7 @@ const NAV = [
   { href: "#faq", label: "FAQ" },
 ];
 
-const CHECKOUT_URL = "https://aiautomation.myr.id/pl/auto-feeds/";
+const CHECKOUT_URL = "https://copilotmarketing.id/daftar-feed";
 
 function LandingPage() {
   return (
