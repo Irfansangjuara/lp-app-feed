@@ -393,20 +393,74 @@ function Testimonials() {
 }
 
 /* ============ SHOWCASE ============ */
+const CDN = "https://autofeeds.id/landing";
+const num = (n: number) => String(n).padStart(2, "0");
+const range = (n: number) => Array.from({ length: n }, (_, i) => i + 1);
+
+const PREVIEW_MODES = [
+  { label: "BANNER", img: `${CDN}/modes/banner-preview.jpg` },
+  { label: "THUMBNAIL", img: `${CDN}/modes/thumbnail-preview.jpg` },
+  { label: "TYPOGRAPHY", img: `${CDN}/modes/typography-preview.jpg` },
+  { label: "COPY", img: `${CDN}/modes/copy-preview.jpg` },
+];
+
+const TYPO_ADS = range(20).map((i) => `${CDN}/ads-typography/typo-${num(i)}.jpg`);
+const VERT_ADS = range(20).map((i) => `${CDN}/ads-9x16/vert-${num(i)}.jpg`);
+const LANDSCAPE_ADS = range(20).map((i) => `${CDN}/ads-16x9/yt-${num(i)}.jpg`);
+const FEED_ADS = range(20).map((i) => `${CDN}/ads-1x1/ig-${num(i)}.jpg`);
+
+const FACE_CARDS = [
+  { t: "Face Features", img: `${CDN}/face-card/face-features.jpg` },
+  { t: "Spectacles Guide", img: `${CDN}/face-card/spectacles-guide.jpg` },
+  { t: "Style Analysis", img: `${CDN}/face-card/style-analysis.jpg` },
+  { t: "Color Analysis", img: `${CDN}/face-card/color-analysis.jpg` },
+  { t: "Makeup Analysis", img: `${CDN}/face-card/makeup-analysis.jpg` },
+];
+
+const MENU_FB = [
+  { t: "Patisserie Luxury", img: `${CDN}/menu-fb/patisserie-luxury.jpg` },
+  { t: "Healthy Editorial", img: `${CDN}/menu-fb/healthy-editorial.jpg` },
+  { t: "Korean Street", img: `${CDN}/menu-fb/korean-street.jpg` },
+  { t: "Indo Heritage", img: `${CDN}/menu-fb/indo-heritage.jpg` },
+  { t: "Japanese Premium", img: `${CDN}/menu-fb/japanese-premium.jpg` },
+  { t: "Retro Marketplace", img: `${CDN}/menu-fb/retro-marketplace.jpg` },
+  { t: "Homemade Cozy", img: `${CDN}/menu-fb/homemade-cozy.jpg` },
+  { t: "Betawi Festive", img: `${CDN}/menu-fb/betawi-festive.jpg` },
+  { t: "Rice Bowl Modern", img: `${CDN}/menu-fb/rice-bowl-modern.jpg` },
+];
+
+function ShowGrid({
+  items, aspect, label, cols = "grid-cols-2 md:grid-cols-4 lg:grid-cols-5",
+}: { items: string[]; aspect: string; label: string; cols?: string }) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-4">
+        <div className="font-mono text-xs text-hi tracking-widest">/{label}</div>
+        <div className="font-mono text-[10px] text-muted-foreground">{items.length} VARIANT</div>
+      </div>
+      <div className={`grid ${cols} gap-2 sm:gap-3`}>
+        {items.map((src, i) => (
+          <div
+            key={src}
+            className={`relative ${aspect} rounded-lg border border-border overflow-hidden bg-surface group`}
+          >
+            <img
+              src={src}
+              alt={`${label} ${i + 1}`}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute top-2 right-2 font-mono text-[9px] text-white/80 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded">
+              {num(i + 1)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Showcase() {
-  // Procedurally-styled tiles since external image URLs may not load
-  const tiles = Array.from({ length: 16 }, (_, i) => i);
-  const gradients = [
-    "linear-gradient(135deg,#fde68a,#f97316)",
-    "linear-gradient(135deg,#1f2937,#0f172a)",
-    "linear-gradient(135deg,#f5f5f4,#a8a29e)",
-    "linear-gradient(135deg,#fca5a5,#7f1d1d)",
-    "linear-gradient(135deg,#86efac,#14532d)",
-    "linear-gradient(135deg,#a5b4fc,#1e1b4b)",
-    "linear-gradient(135deg,#fef3c7,#92400e)",
-    "linear-gradient(135deg,#fbcfe8,#831843)",
-  ];
-  const labels = ["BANNER", "THUMBNAIL", "TYPOGRAPHY", "STORY", "REELS", "MENU F&B", "FACE CARD", "COPY"];
   return (
     <section id="showcase" className="border-b border-border">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
@@ -419,26 +473,65 @@ function Showcase() {
           Semua tanpa edit manual.
         </p>
 
+        {/* Preview Modes */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
-          {tiles.map((i) => (
-            <div
-              key={i}
-              className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden group"
-              style={{ background: gradients[i % gradients.length] }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute top-3 left-3 font-mono text-[10px] tracking-widest text-white/90 bg-black/30 backdrop-blur px-2 py-1 rounded">
-                /{labels[i % labels.length]}
+          {PREVIEW_MODES.map((m) => (
+            <div key={m.label} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface group">
+              <img src={m.img} alt={m.label} loading="lazy" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3">
+                <div className="font-mono text-[10px] tracking-widest text-hi">MODE</div>
+                <div className="text-white font-semibold mt-1">{m.label}</div>
               </div>
-              <div className="absolute bottom-3 left-3 right-3 text-white font-semibold leading-tight">
-                {["Premium SPF 50", "Specialty Coffee", "Editorial Drop", "Launch 24.10", "Sale 70%", "New Menu", "Brand Story", "Promo Kelas"][i % 8]}
-              </div>
-              <div className="absolute top-3 right-3 font-mono text-[10px] text-white/80">{String(i + 1).padStart(2, "0")}</div>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 grid sm:grid-cols-4 gap-3">
+        <div className="mt-16 space-y-16">
+          <ShowGrid items={TYPO_ADS} aspect="aspect-[4/5]" label="TYPOGRAPHY ADS · 4:5" />
+          <ShowGrid items={VERT_ADS} aspect="aspect-[9/16]" label="VERTICAL CONTENT · 9:16" />
+          <ShowGrid items={LANDSCAPE_ADS} aspect="aspect-video" label="LANDSCAPE & THUMBNAIL · 16:9" cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
+          <ShowGrid items={FEED_ADS} aspect="aspect-square" label="FEED ADS · 1:1" />
+
+          {/* Face Card */}
+          <div>
+            <div className="flex items-baseline justify-between mb-4">
+              <div className="font-mono text-xs text-hi tracking-widest">/FACE CARD ANALYSIS</div>
+              <div className="font-mono text-[10px] text-muted-foreground">5 ANALYSIS</div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {FACE_CARDS.map((f) => (
+                <div key={f.t} className="relative aspect-[3/4] rounded-xl border border-border overflow-hidden bg-surface">
+                  <img src={f.img} alt={f.t} loading="lazy" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-white text-sm font-semibold">{f.t}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Menu F&B */}
+          <div>
+            <div className="flex items-baseline justify-between mb-4">
+              <div className="font-mono text-xs text-hi tracking-widest">/MENU F&B THEMES</div>
+              <div className="font-mono text-[10px] text-muted-foreground">9 TEMPLATES</div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {MENU_FB.map((m) => (
+                <div key={m.t} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface">
+                  <img src={m.img} alt={m.t} loading="lazy" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3 font-mono text-[10px] tracking-widest text-white/90 bg-black/30 backdrop-blur px-2 py-1 rounded">
+                    THEME
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3 text-white font-semibold">{m.t}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 grid sm:grid-cols-4 gap-3">
           {["1:1 Feed", "9:16 Story", "16:9 YT", "4:5 Ads"].map((f) => (
             <div key={f} className="rounded-xl border border-border bg-surface p-5">
               <div className="font-mono text-xs text-hi">FORMAT</div>
@@ -450,6 +543,7 @@ function Showcase() {
     </section>
   );
 }
+
 
 /* ============ PRICING ============ */
 function Pricing() {
