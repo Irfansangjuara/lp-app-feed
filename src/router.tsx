@@ -7,7 +7,7 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
-    basepath: '/lp-app-feed',
+    basepath: '/lp-app-feed/',
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
