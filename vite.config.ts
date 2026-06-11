@@ -7,7 +7,9 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  base: "/offer-app-feed/",
+  vite: {
+    base: "/offer-app-feed/",
+  },
   nitro: {
     preset: "node-server",
   },
