@@ -1,5 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+// Framer motion added above
+import { motion, AnimatePresence } from "framer-motion";
+import { Image, Video, Megaphone, PenTool, LayoutTemplate, Utensils } from "lucide-react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +42,7 @@ function LandingPage() {
       <Header />
       <main>
         <Hero />
+        <HeroShowcase />
         <Marquee />
         <ValueProp />
         <Audience />
@@ -92,98 +106,259 @@ function Hero() {
       <div className="absolute inset-0 grid-noise opacity-[0.18] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-[40rem] h-[40rem] rounded-full bg-hi/10 blur-3xl pointer-events-none" />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
+        <motion.div className="lg:col-span-7" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
             <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" />
             Early Access · Batch Pertama
-          </div>
-          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
+          </motion.div>
+          <motion.h1 variants={fadeUp} className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
             Tanpa Designer,<br />
             Buat Konten Ala <span className="text-hi">Desain Grafis</span> Profesional<br className="hidden sm:block" />
             dalam Hitungan Detik.
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Generate desain iklan profesional untuk feed, ads, dan branding hanya dalam beberapa detik.
             Tanpa belajar desain, tanpa langganan tool mahal, tanpa nunggu revisi tiga hari.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href={CHECKOUT_URL}
               className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition"
             >
               Ambil Early Access — Rp 49.000
             </a>
-            <a
+            <motion.a
               href="#showcase"
               className="inline-flex justify-center items-center gap-2 rounded-xl border border-border bg-surface px-6 py-4 text-base font-medium hover:bg-surface-2 transition"
             >
               Lihat Hasil Generate →
-            </a>
-          </div>
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
+            </motion.a>
+          </motion.div>
+          <motion.ul variants={fadeUp} className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
             <li>✓ Sekali bayar — seumur hidup</li>
             <li>✓ 10 mode kreatif</li>
             <li>✓ 48+ kategori siap pakai</li>
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
 
         {/* Mockup */}
-        <div className="lg:col-span-5">
+        <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}>
           <MockupCard />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
 function MockupCard() {
+  const [step, setStep] = useState(0);
+  const [images, setImages] = useState([
+    "https://autofeeds.id/landing/ads-1x1/ig-01.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-04.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-07.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-15.jpg",
+  ]);
+
+  useEffect(() => {
+    // initial random
+    const pool = Array.from({length: 20}, (_, i) => `https://autofeeds.id/landing/ads-1x1/ig-${String(i + 1).padStart(2, "0")}.jpg`);
+    setImages([...pool].sort(() => 0.5 - Math.random()).slice(0, 5));
+
+    const interval = setInterval(() => {
+      setStep((s) => {
+        if (s === 0) {
+          setImages([...pool].sort(() => 0.5 - Math.random()).slice(0, 5));
+          return 1;
+        }
+        return 0;
+      });
+    }, 4000); // toggle every 4s
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="relative rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-2">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-hi/80" />
+    <div className="relative rounded-2xl border border-hi/40 bg-surface shadow-[0_0_40px_rgba(251,191,36,0.15)] overflow-visible">
+      {/* Background Grid */}
+      <div className="absolute inset-0 grid-noise opacity-[0.03] pointer-events-none rounded-2xl" />
+
+      {/* Floating Badges */}
+      <motion.div 
+        animate={{ y: [0, -8, 0] }} 
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        className="absolute -top-6 -right-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-4 min-w-[140px]"
+      >
+        <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-1">FORMAT</div>
+        <div className="text-lg font-bold text-hi mb-1">Multi-rasio</div>
+        <div className="font-mono text-[9px] text-muted-foreground tracking-widest">AF-STUDIO · V2.1</div>
+        <div className="font-mono text-[9px] text-muted-foreground mt-1">IG · TT · YT · Story</div>
+      </motion.div>
+
+      <motion.div 
+        animate={{ y: [0, 8, 0] }} 
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+        className="absolute -bottom-6 -left-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-4 min-w-[140px]"
+      >
+        <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-1">RATA-RATA</div>
+        <div className="text-xl font-bold text-hi mb-1">&lt; 30 detik</div>
+        <div className="font-mono text-[10px] text-muted-foreground">brief → visual</div>
+      </motion.div>
+
+      {/* Top Bar */}
+      <div className="flex items-center px-4 py-3 border-b border-border bg-[#1a1a1a] rounded-t-2xl relative z-10">
+        <div className="flex items-center gap-2 w-1/4">
+          <span className="w-3 h-3 rounded-full bg-destructive/80" />
+          <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+          <span className="w-3 h-3 rounded-full bg-green-500/80" />
         </div>
-        <div className="font-mono text-[10px] text-muted-foreground">app.superaifeed.id/studio</div>
-        <div className="flex items-center gap-1.5 font-mono text-[10px] text-hi">
-          <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" /> LIVE
+        <div className="flex-1 flex justify-center">
+          <div className="font-mono text-[10px] text-muted-foreground bg-background/80 px-8 py-1.5 rounded-md flex items-center gap-2 border border-border/50">
+            <span>🔒</span> app.autofeeds.id/studio
+          </div>
         </div>
+        <div className="w-1/4" />
       </div>
-      <div className="p-5 space-y-4">
-        <div className="font-mono text-[10px] text-muted-foreground tracking-widest">/ BANNER GENERATOR</div>
-        <Field label="BRAND" value="AuraSkin" />
-        <Field label="HEADLINE" value="Premium Sunscreen SPF 50" />
-        <Field label="STYLE" value="Minimal Clean" />
-        <div className="grid grid-cols-3 gap-2 pt-1">
-          {["Soft", "Editorial", "Bold"].map((s, i) => (
-            <button
-              key={s}
-              className={`text-xs py-2 rounded-md border ${
-                i === 1 ? "border-hi bg-hi/10 text-hi" : "border-border text-muted-foreground"
-              }`}
-            >
-              {s}
-            </button>
-          ))}
+
+      {/* Main Area */}
+      <div className="flex relative z-10 h-[400px]">
+        {/* Sidebar */}
+        <div className="w-16 border-r border-border flex flex-col items-center py-4 gap-6 bg-[#151515] rounded-bl-2xl">
+          <div className="w-10 h-10 rounded-xl bg-hi text-primary-foreground flex items-center justify-center font-bold text-lg shadow-[0_0_15px_rgba(251,191,36,0.3)]">
+            F
+          </div>
+          <div className="flex flex-col gap-6 text-muted-foreground/40 mt-4">
+            <Image className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+            <Video className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+            <Megaphone className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+            <PenTool className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+            <LayoutTemplate className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+            <Utensils className="w-5 h-5 hover:text-hi cursor-pointer transition-colors" />
+          </div>
         </div>
-        <button className="w-full mt-2 rounded-md bg-hi text-primary-foreground py-3 text-sm font-semibold">
-          Generate Design ⚡
-        </button>
-        <div className="grid grid-cols-3 gap-2 pt-2">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="aspect-square rounded-md"
-              style={{
-                background: [
-                  "linear-gradient(135deg,#f4ead1,#d1bf8a)",
-                  "linear-gradient(135deg,#1a1a1a,#3a3a3a)",
-                  "linear-gradient(135deg,#fcd34d,#f59e0b)",
-                ][i],
-              }}
-            />
-          ))}
+
+        {/* Content Area */}
+        <div className="flex-1 relative overflow-hidden bg-surface/40 rounded-br-2xl">
+          <AnimatePresence>
+            {step === 0 ? (
+              <motion.div 
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 p-6 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-4 flex items-center gap-2">
+                    <span className="text-border">/</span> BANNER GENERATOR
+                  </div>
+                  <h3 className="text-xl font-bold mb-6 text-foreground tracking-tight">Premium Sunscreen SPF 50</h3>
+
+                  <div className="space-y-4">
+                    <Field label="BRAND" value="AuraSkin" />
+                    <Field label="HEADLINE" value="Premium Sunscreen SPF 50" />
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <Field label="STYLE" value="Minimal Clean ▾" />
+                      <Field label="RATIO" value="1:1 Instagram ▾" />
+                    </div>
+
+                    <div className="pt-2">
+                      <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-2">COLOR</div>
+                      <div className="flex gap-2">
+                        <div className="w-6 h-6 rounded-md bg-[#ec4899] border border-white/10 shadow-inner" />
+                        <div className="w-6 h-6 rounded-md bg-white border border-white/10 shadow-inner" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end mt-4 relative">
+                  <motion.button 
+                    animate={{ boxShadow: ["0 0 0px 0px rgba(251,191,36,0)", "0 0 25px 2px rgba(251,191,36,0.6)", "0 0 0px 0px rgba(251,191,36,0)"] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="rounded-xl bg-gradient-to-br from-hi to-yellow-600 text-primary-foreground px-6 py-3 text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform"
+                  >
+                    ✨ Generate
+                  </motion.button>
+                  
+                  {/* Animated Cursor */}
+                  <motion.div
+                    animate={{ 
+                      x: [100, -10],
+                      y: [120, 15],
+                      scale: [1, 0.9]
+                    }}
+                    transition={{ duration: 1.5, ease: "easeOut", delay: 1 }}
+                    className="absolute right-0 top-0 z-50 pointer-events-none drop-shadow-2xl"
+                  >
+                    <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5.65376 2.00018L21.4391 16.0357C22.6841 17.1423 22.1284 19.1868 20.4735 19.5898L13.9168 21.1864L10.3705 29.8362C9.72898 31.4013 7.46903 31.3323 6.94503 29.726L1.87971 14.1843L1.51731 3.51347C1.46465 1.96349 3.01353 0.884518 4.39891 1.50346L5.65376 2.00018Z" fill="white" stroke="black" strokeWidth="2"/>
+                    </svg>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="result"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 flex items-center justify-center p-4 bg-[#111]"
+              >
+                {/* Result Pill */}
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="absolute top-6 z-20 rounded-full border border-hi/30 bg-background/80 backdrop-blur px-6 py-2 flex items-center gap-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]"
+                >
+                  <span className="text-hi text-sm">✨</span>
+                  <span className="font-mono text-xs font-bold tracking-widest text-hi">AURASKIN · READY</span>
+                </motion.div>
+
+                {/* Scattered Background Images */}
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: -20, x: -100, y: -50 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: -15, x: -80, y: -60 }}
+                  transition={{ delay: 0.1, type: "spring" }}
+                  src={images[1]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: 20, x: 100, y: -40 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: 12, x: 80, y: -30 }}
+                  transition={{ delay: 0.2, type: "spring" }}
+                  src={images[2]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: -30, x: -80, y: 80 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: -8, x: -60, y: 70 }}
+                  transition={{ delay: 0.3, type: "spring" }}
+                  src={images[3]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: 30, x: 80, y: 80 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: 18, x: 60, y: 60 }}
+                  transition={{ delay: 0.4, type: "spring" }}
+                  src={images[4]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+
+                {/* Center Main Image */}
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, type: "spring", bounce: 0.4 }}
+                  src={images[0]} 
+                  className="relative z-10 w-64 h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover" 
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
@@ -193,9 +368,58 @@ function MockupCard() {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">{label}</div>
-      <div className="rounded-md border border-border bg-background/40 px-3 py-2.5 text-sm">{value}</div>
+      <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-1.5">{label}</div>
+      <div className="rounded-lg border border-border bg-[#151515] px-3 py-2.5 text-sm text-foreground/90 shadow-inner">{value}</div>
     </div>
+  );
+}
+
+
+/* ============ HERO SHOWCASE ============ */
+function HeroShowcase() {
+  const images = Array.from({ length: 20 }, (_, i) => `https://autofeeds.id/landing/ads-1x1/ig-${String(i + 1).padStart(2, "0")}.jpg`);
+  const row1 = images.slice(0, 10);
+  const row2 = images.slice(10, 20);
+
+  return (
+    <section className="border-b border-border bg-background py-16 overflow-hidden">
+      <div className="mx-auto max-w-5xl px-5 text-center mb-10">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-destructive" />
+          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">SHOWCASE</span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+          Segala Jenis <span className="text-hi">Produk Brand Dan Jasa</span>
+        </h2>
+        <p className="mt-4 text-muted-foreground text-sm max-w-xl mx-auto">
+          Geser pelan — semua design di bawah ini dibuat tanpa designer, tanpa Canva, tanpa Photoshop.
+        </p>
+      </div>
+
+      <div className="relative flex flex-col gap-4">
+        {/* Vignette overlays */}
+        <div className="absolute inset-y-0 left-0 w-16 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        {/* Row 1 */}
+        <div className="flex w-max ticker hover:[animation-play-state:paused]" style={{ animationDuration: '40s' }}>
+          {[...row1, ...row1].map((src, i) => (
+            <div key={i} className="px-2">
+              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase" loading="lazy" />
+            </div>
+          ))}
+        </div>
+        
+        {/* Row 2 */}
+        <div className="flex w-max ticker-reverse hover:[animation-play-state:paused]">
+          {[...row2, ...row2].map((src, i) => (
+            <div key={i} className="px-2">
+              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -240,15 +464,15 @@ function ValueProp() {
           Setiap mode di Super AI Feed 1.2 dirancang dari hasil reverse-engineering brief studio kreatif beneran,
           lalu disederhanakan jadi form yang siapapun bisa isi.
         </p>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+        <motion.div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {items.map((it, i) => (
-            <div key={i} className="bg-background p-7 group hover:bg-surface transition">
+            <motion.div key={i} variants={fadeUp} className="bg-background p-7 group hover:bg-surface transition">
               <div className="font-mono text-xs text-hi">/0{i + 1}</div>
               <div className="mt-4 text-lg font-semibold">{it.t}</div>
               <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.d}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -285,9 +509,9 @@ function Audience() {
           Kalau salah satu deskripsi di bawah terdengar seperti kamu — Super AI Feed 1.2 akan langsung
           kepake hari pertama akses.
         </p>
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {items.map((it, i) => (
-            <div key={i} className="rounded-xl border border-border bg-background p-6 hover:border-hi/40 transition">
+            <motion.div key={i} variants={fadeUp} className="rounded-xl border border-border bg-background p-6 hover:border-hi/40 transition">
               <div className="flex items-center justify-between">
                 <div className="font-mono text-xs text-muted-foreground">0{i + 1}</div>
                 <div className="w-8 h-8 rounded-full bg-hi/10 border border-hi/30 flex items-center justify-center text-hi text-xs">
@@ -296,9 +520,9 @@ function Audience() {
               </div>
               <div className="mt-4 text-lg font-semibold">{it.t}</div>
               <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.d}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -321,8 +545,8 @@ function Comparison() {
         <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
           Cara lama vs <span className="text-hi">cara Super AI Feed</span>.
         </h2>
-        <div className="mt-12 grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-border p-6 bg-background">
+        <motion.div className="mt-12 grid md:grid-cols-2 gap-4" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+          <motion.div variants={fadeUp} className="rounded-2xl border border-border p-6 bg-background">
             <div className="font-mono text-xs text-muted-foreground">/01 · CARA KONVENSIONAL (LAMBAT)</div>
             <div className="mt-5 divide-y divide-border">
               {rows.map(([k, v]) => (
@@ -332,8 +556,8 @@ function Comparison() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="rounded-2xl border border-hi/40 p-6 bg-hi/[0.04]">
+          </motion.div>
+          <motion.div variants={fadeUp} className="rounded-2xl border border-hi/40 p-6 bg-hi/[0.04]">
             <div className="font-mono text-xs text-hi">/02 · CARA SUPER AI FEED (INSTAN)</div>
             <div className="mt-5 divide-y divide-border">
               {rows.map(([k, , v]) => (
@@ -343,8 +567,8 @@ function Comparison() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -368,9 +592,9 @@ function Testimonials() {
         <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
           Yang sudah pakai <span className="text-muted-foreground">nggak balik lagi</span> ke cara lama.
         </h2>
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {items.map((t, i) => (
-            <figure key={i} className="rounded-2xl border border-border bg-background p-6 flex flex-col">
+            <motion.figure key={i} variants={fadeUp} className="rounded-2xl border border-border bg-background p-6 flex flex-col">
               <blockquote className="text-base leading-relaxed flex-1">"{t.q}"</blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
                 <div
@@ -384,9 +608,9 @@ function Testimonials() {
                   <div className="font-mono text-[10px] tracking-widest text-muted-foreground">{t.r}</div>
                 </div>
               </figcaption>
-            </figure>
+            </motion.figure>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -474,18 +698,18 @@ function Showcase() {
         </p>
 
         {/* Preview Modes */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <motion.div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {PREVIEW_MODES.map((m) => (
-            <div key={m.label} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface group">
+            <motion.div key={m.label} variants={fadeUp} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface group">
               <img src={m.img} alt={m.label} loading="lazy" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-3 right-3">
                 <div className="font-mono text-[10px] tracking-widest text-hi">MODE</div>
                 <div className="text-white font-semibold mt-1">{m.label}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="mt-16 space-y-16">
           <ShowGrid items={TYPO_ADS} aspect="aspect-[4/5]" label="TYPOGRAPHY ADS · 4:5" />
@@ -531,14 +755,14 @@ function Showcase() {
           </div>
         </div>
 
-        <div className="mt-16 grid sm:grid-cols-4 gap-3">
+        <motion.div className="mt-16 grid sm:grid-cols-4 gap-3" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {["1:1 Feed", "9:16 Story", "16:9 YT", "4:5 Ads"].map((f) => (
-            <div key={f} className="rounded-xl border border-border bg-surface p-5">
+            <motion.div key={f} variants={fadeUp} className="rounded-xl border border-border bg-surface p-5">
               <div className="font-mono text-xs text-hi">FORMAT</div>
               <div className="mt-2 text-xl font-semibold">{f}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -556,7 +780,7 @@ function Pricing() {
         if (s < 0) { s = 59; m--; }
         if (m < 0) { m = 59; h--; }
         if (h < 0) { h = 23; d--; }
-        if (d < 0) { d = 0; h = 0; m = 0; s = 0; }
+        if (d < 0) { d = 6; h = 23; m = 59; s = 55; }
         return { d, h, m, s };
       });
     }, 1000);
@@ -592,24 +816,24 @@ function Pricing() {
               {[
                 ["HARI", t.d], ["JAM", t.h], ["MIN", t.m], ["DET", t.s],
               ].map(([l, v]) => (
-                <div key={l as string} className="rounded-lg bg-background border border-border p-3 text-center">
-                  <div className="font-mono text-2xl font-semibold tabular-nums">
+                <div key={l as string} className="rounded-xl bg-[#111] border border-white/5 p-4 md:p-5 text-center">
+                  <div className="font-mono text-3xl md:text-4xl font-bold tabular-nums text-white">
                     {String(v).padStart(2, "0")}
                   </div>
-                  <div className="font-mono text-[10px] text-muted-foreground tracking-widest mt-1">{l}</div>
+                  <div className="font-mono text-[10px] text-muted-foreground tracking-widest mt-3">{l}</div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6">
-              <div className="font-mono text-xs text-muted-foreground mb-2">KUOTA BATCH 1 · 69 / 100 TERISI</div>
-              <div className="h-2 rounded-full bg-background border border-border overflow-hidden">
-                <div className="h-full bg-hi" style={{ width: "69%" }} />
+            <div className="mt-8">
+              <div className="font-mono text-xs text-muted-foreground mb-3">KUOTA BATCH 1 · 69 / 100 TERISI</div>
+              <div className="h-2.5 rounded-full bg-[#111] border border-white/5 overflow-hidden">
+                <div className="h-full bg-hi rounded-full" style={{ width: "69%" }} />
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7">
+          <motion.div className="lg:col-span-7" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
             <div className="relative rounded-3xl border border-hi/40 bg-background p-8 glow-lime">
               <div className="absolute -top-3 right-6 bg-hi text-primary-foreground font-mono text-[10px] tracking-widest px-3 py-1 rounded-full">
                 HEMAT 93%
@@ -645,7 +869,7 @@ function Pricing() {
                 TRANSFER · QRIS · OVO · GOPAY · DANA
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -688,9 +912,11 @@ function FAQ() {
                 </div>
                 <span className={`text-hi text-xl transition-transform ${open === i ? "rotate-45" : ""}`}>+</span>
               </div>
+              <AnimatePresence>
               {open === i && (
-                <p className="mt-4 ml-12 text-muted-foreground leading-relaxed">{a}</p>
+                <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-4 ml-12 text-muted-foreground leading-relaxed overflow-hidden">{a}</motion.p>
               )}
+              </AnimatePresence>
             </button>
           ))}
         </div>
