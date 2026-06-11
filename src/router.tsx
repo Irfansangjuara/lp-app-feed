@@ -7,7 +7,6 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
-    basepath: '/offer-app-feed',
     trailingSlash: 'always',
     context: { queryClient },
     scrollRestoration: true,
