@@ -10,13 +10,6 @@ export default defineConfig({
   base: "/lp-app-feed/",
   nitro: {
     preset: "node-server",
-    baseURL: "/",
-    publicAssets: [
-      {
-        baseURL: "/lp-app-feed/assets",
-        dir: "./.output/public/assets",
-      }
-    ]
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
