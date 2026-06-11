@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 // Framer motion added above
 import { motion, AnimatePresence } from "framer-motion";
-import { Image, Video, Megaphone, PenTool, LayoutTemplate, Utensils } from "lucide-react";
+import { Bot, Image, Video, Megaphone, PenTool, LayoutTemplate, Utensils, FileText, Sparkles, ArrowRight, GalleryHorizontal, Youtube, Type, ScanFace, Hexagon, Shirt, Star, Clapperboard } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -42,11 +42,13 @@ function LandingPage() {
       <Header />
       <main>
         <Hero />
-        <HeroShowcase />
         <Marquee />
+        <HeroShowcase />
         <ValueProp />
         <Audience />
         <Comparison />
+        <CarouselFeeds />
+        <Engines />
         <Testimonials />
         <Showcase />
         <Pricing />
@@ -150,32 +152,73 @@ function Hero() {
   );
 }
 
+const SCENARIOS = [
+  {
+    product: "Walnut Dining Table",
+    brand: "HomeNest",
+    headline: "Solid Walnut Dining Table",
+    style: "Warm & Cozy ▾",
+    ratio: "1:1 Instagram ▾",
+    colors: ["#8B4513", "#FFFFFF"],
+    images: [
+      "https://autofeeds.id/landing/ads-1x1/ig-01.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-02.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-03.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-04.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-05.jpg",
+    ]
+  },
+  {
+    product: "Premium Sunscreen SPF 50",
+    brand: "AuraSkin",
+    headline: "Premium Sunscreen SPF 50",
+    style: "Minimal Clean ▾",
+    ratio: "1:1 Instagram ▾",
+    colors: ["#ec4899", "#ffffff"],
+    images: [
+      "https://autofeeds.id/landing/ads-1x1/ig-06.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-07.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-08.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-09.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-10.jpg",
+    ]
+  },
+  {
+    product: "Korean Rice Bowl",
+    brand: "SeoulBites",
+    headline: "Spicy Korean Rice Bowl",
+    style: "Food Editorial ▾",
+    ratio: "1:1 Instagram ▾",
+    colors: ["#ef4444", "#f59e0b"],
+    images: [
+      "https://autofeeds.id/landing/ads-1x1/ig-11.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-13.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-14.jpg",
+      "https://autofeeds.id/landing/ads-1x1/ig-15.jpg",
+    ]
+  }
+];
+
 function MockupCard() {
-  const [step, setStep] = useState(0);
-  const [images, setImages] = useState([
-    "https://autofeeds.id/landing/ads-1x1/ig-01.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-04.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-07.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-15.jpg",
-  ]);
+  const [phase, setPhase] = useState<"form" | "result">("form");
+  const [scenarioIndex, setScenarioIndex] = useState(0);
 
   useEffect(() => {
-    // initial random
-    const pool = Array.from({length: 20}, (_, i) => `https://autofeeds.id/landing/ads-1x1/ig-${String(i + 1).padStart(2, "0")}.jpg`);
-    setImages([...pool].sort(() => 0.5 - Math.random()).slice(0, 5));
-
     const interval = setInterval(() => {
-      setStep((s) => {
-        if (s === 0) {
-          setImages([...pool].sort(() => 0.5 - Math.random()).slice(0, 5));
-          return 1;
+      setPhase((p) => {
+        if (p === "form") {
+          return "result";
+        } else {
+          setScenarioIndex((si) => (si + 1) % SCENARIOS.length);
+          return "form";
         }
-        return 0;
       });
     }, 4000); // toggle every 4s
     return () => clearInterval(interval);
   }, []);
+
+  const scenario = SCENARIOS[scenarioIndex];
 
   return (
     <div className="relative rounded-2xl border border-hi/40 bg-surface shadow-[0_0_40px_rgba(251,191,36,0.15)] overflow-visible">
@@ -207,13 +250,13 @@ function MockupCard() {
       {/* Top Bar */}
       <div className="flex items-center px-4 py-3 border-b border-border bg-[#1a1a1a] rounded-t-2xl relative z-10">
         <div className="flex items-center gap-2 w-1/4">
-          <span className="w-3 h-3 rounded-full bg-destructive/80" />
-          <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-          <span className="w-3 h-3 rounded-full bg-green-500/80" />
+          <span className="w-3 h-3 rounded-full bg-border" />
+          <span className="w-3 h-3 rounded-full bg-border" />
+          <span className="w-3 h-3 rounded-full bg-border" />
         </div>
         <div className="flex-1 flex justify-center">
           <div className="font-mono text-[10px] text-muted-foreground bg-background/80 px-8 py-1.5 rounded-md flex items-center gap-2 border border-border/50">
-            <span>🔒</span> app.autofeeds.id/studio
+            <span>🔒</span> app.copilotmarketing.id/studio
           </div>
         </div>
         <div className="w-1/4" />
@@ -238,12 +281,12 @@ function MockupCard() {
 
         {/* Content Area */}
         <div className="flex-1 relative overflow-hidden bg-surface/40 rounded-br-2xl">
-          <AnimatePresence>
-            {step === 0 ? (
+          <AnimatePresence mode="wait">
+            {phase === "form" ? (
               <motion.div 
-                key="form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                key={`form-${scenarioIndex}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, filter: "blur(10px)" }}
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0 p-6 flex flex-col justify-between"
@@ -252,22 +295,22 @@ function MockupCard() {
                   <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-4 flex items-center gap-2">
                     <span className="text-border">/</span> BANNER GENERATOR
                   </div>
-                  <h3 className="text-xl font-bold mb-6 text-foreground tracking-tight">Premium Sunscreen SPF 50</h3>
+                  <h3 className="text-xl font-bold mb-6 text-foreground tracking-tight">{scenario.product}</h3>
 
                   <div className="space-y-4">
-                    <Field label="BRAND" value="AuraSkin" />
-                    <Field label="HEADLINE" value="Premium Sunscreen SPF 50" />
+                    <Field label="BRAND" value={scenario.brand} />
+                    <Field label="HEADLINE" value={scenario.headline} />
                     
                     <div className="grid grid-cols-2 gap-4">
-                      <Field label="STYLE" value="Minimal Clean ▾" />
-                      <Field label="RATIO" value="1:1 Instagram ▾" />
+                      <Field label="STYLE" value={scenario.style} />
+                      <Field label="RATIO" value={scenario.ratio} />
                     </div>
 
                     <div className="pt-2">
                       <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-2">COLOR</div>
                       <div className="flex gap-2">
-                        <div className="w-6 h-6 rounded-md bg-[#ec4899] border border-white/10 shadow-inner" />
-                        <div className="w-6 h-6 rounded-md bg-white border border-white/10 shadow-inner" />
+                        <div className="w-6 h-6 rounded-md border border-white/10 shadow-inner" style={{ backgroundColor: scenario.colors[0] }} />
+                        <div className="w-6 h-6 rounded-md border border-white/10 shadow-inner" style={{ backgroundColor: scenario.colors[1] }} />
                       </div>
                     </div>
                   </div>
@@ -279,7 +322,7 @@ function MockupCard() {
                     transition={{ repeat: Infinity, duration: 2 }}
                     className="rounded-xl bg-gradient-to-br from-hi to-yellow-600 text-primary-foreground px-6 py-3 text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform"
                   >
-                    ✨ Generate
+                    <Bot className="w-4 h-4" /> Generate
                   </motion.button>
                   
                   {/* Animated Cursor */}
@@ -300,7 +343,7 @@ function MockupCard() {
               </motion.div>
             ) : (
               <motion.div 
-                key="result"
+                key={`result-${scenarioIndex}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, filter: "blur(10px)" }}
@@ -314,8 +357,8 @@ function MockupCard() {
                   transition={{ delay: 0.3 }}
                   className="absolute top-6 z-20 rounded-full border border-hi/30 bg-background/80 backdrop-blur px-6 py-2 flex items-center gap-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]"
                 >
-                  <span className="text-hi text-sm">✨</span>
-                  <span className="font-mono text-xs font-bold tracking-widest text-hi">AURASKIN · READY</span>
+                  <Bot className="w-4 h-4 text-hi" />
+                  <span className="font-mono text-xs font-bold tracking-widest text-hi">{scenario.brand.toUpperCase()} · READY</span>
                 </motion.div>
 
                 {/* Scattered Background Images */}
@@ -323,28 +366,28 @@ function MockupCard() {
                   initial={{ scale: 0.5, opacity: 0, rotate: -20, x: -100, y: -50 }}
                   animate={{ scale: 1, opacity: 0.5, rotate: -15, x: -80, y: -60 }}
                   transition={{ delay: 0.1, type: "spring" }}
-                  src={images[1]} 
+                  src={scenario.images[1]} 
                   className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
                   initial={{ scale: 0.5, opacity: 0, rotate: 20, x: 100, y: -40 }}
                   animate={{ scale: 1, opacity: 0.5, rotate: 12, x: 80, y: -30 }}
                   transition={{ delay: 0.2, type: "spring" }}
-                  src={images[2]} 
+                  src={scenario.images[2]} 
                   className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
                   initial={{ scale: 0.5, opacity: 0, rotate: -30, x: -80, y: 80 }}
                   animate={{ scale: 1, opacity: 0.5, rotate: -8, x: -60, y: 70 }}
                   transition={{ delay: 0.3, type: "spring" }}
-                  src={images[3]} 
+                  src={scenario.images[3]} 
                   className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
                   initial={{ scale: 0.5, opacity: 0, rotate: 30, x: 80, y: 80 }}
                   animate={{ scale: 1, opacity: 0.5, rotate: 18, x: 60, y: 60 }}
                   transition={{ delay: 0.4, type: "spring" }}
-                  src={images[4]} 
+                  src={scenario.images[4]} 
                   className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
 
@@ -353,7 +396,7 @@ function MockupCard() {
                   initial={{ scale: 0.5, opacity: 0, y: 20 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, type: "spring", bounce: 0.4 }}
-                  src={images[0]} 
+                  src={scenario.images[0]} 
                   className="relative z-10 w-64 h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover" 
                 />
               </motion.div>
@@ -385,7 +428,7 @@ function HeroShowcase() {
     <section className="border-b border-border bg-background py-16 overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 text-center mb-10">
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-destructive" />
+          <span className="w-1.5 h-1.5 rounded-full bg-hi" />
           <span className="font-mono text-[10px] tracking-widest text-muted-foreground">SHOWCASE</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
@@ -439,6 +482,316 @@ function Marquee() {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ============ CAROUSEL FEEDS ============ */
+function CarouselFeeds() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const images = [
+    "https://autofeeds.id/landing/ads-1x1/ig-05.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
+    "https://autofeeds.id/landing/ads-1x1/ig-14.jpg",
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <section className="bg-surface/20 py-20 lg:py-28 overflow-hidden border-b border-border">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          
+          {/* Left: Content */}
+          <div className="max-w-xl">
+            <SectionLabel index="BARU" label="CAROUSEL FEEDS" />
+            <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+              Carousel feed yang <span className="text-hi">nyambung</span><br />
+              — satu cerita, banyak slide.
+            </h2>
+            <p className="mt-6 text-muted-foreground text-lg/relaxed">
+              Pilih tipe template & jumlah slide, lalu sistem menyusun alur cerita, objective tiap slide, variasi layout, sampai komposisi visual yang konsisten — dari hook sampai CTA. Termasuk template News untuk konten berita.
+            </p>
+
+            <ul className="mt-8 space-y-4">
+              {[
+                "12+ tipe template — Product, Promo, Testimonial, Tips, Story, News, dll",
+                "3–7 slide, alur cerita tersusun otomatis (hook → value → CTA)",
+                "Layout tiap slide beda tapi tetap satu campaign yang konsisten",
+                "Atur letak gambar, teks & warna di slide pertama"
+              ].map((item, i) => (
+                <li key={i} className="flex gap-3 text-sm text-muted-foreground">
+                  <span className="text-hi mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap gap-6 font-mono text-[10px] tracking-widest text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <LayoutTemplate className="w-4 h-4 text-hi" /> Slide otomatis tersusun
+              </div>
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-hi" /> Template News
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-hi" /> Layout variatif
+              </div>
+            </div>
+
+            <a href={CHECKOUT_URL} className="mt-10 inline-flex items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 font-semibold hover:opacity-90 transition">
+              Coba Carousel Feeds <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          {/* Right: 3D Stacked Cards Animation */}
+          <div className="relative h-[400px] sm:h-[500px] w-full flex items-center justify-center perspective-[1000px]">
+            <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px]">
+              <AnimatePresence initial={false}>
+                {images.map((src, i) => {
+                  const position = (i - currentIndex + images.length) % images.length;
+                  
+                  const zIndex = 30 - position * 10;
+                  const scale = 1 - position * 0.05;
+                  const x = position * 25; 
+                  const y = position * 15; 
+                  const rotate = position * 4; 
+                  
+                  return (
+                    <motion.div
+                      key={src}
+                      className="absolute inset-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-surface cursor-pointer"
+                      onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
+                      initial={{ opacity: 0, x: -50, scale: 0.9 }}
+                      animate={{
+                        zIndex,
+                        scale,
+                        x,
+                        y,
+                        rotate,
+                        opacity: 1
+                      }}
+                      exit={{ opacity: 0, x: -100, scale: 1.1, rotate: -5 }}
+                      transition={{
+                        duration: 0.6,
+                        ease: [0.32, 0.72, 0, 1]
+                      }}
+                      style={{ transformOrigin: 'top left' }}
+                    >
+                      <img src={src} alt="Carousel Slide" className="w-full h-full object-cover" />
+                      <div className="absolute top-4 right-4 bg-black/40 backdrop-blur text-white text-xs font-mono px-2 py-1 rounded-full border border-white/10">
+                        {position === 0 ? "1/3" : position === 1 ? "2/3" : "3/3"}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+            
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center gap-3">
+               <div className="flex gap-1.5">
+                 {images.map((_, i) => (
+                   <button
+                     key={i}
+                     onClick={() => setCurrentIndex(i)}
+                     className={`h-1.5 rounded-full transition-all ${i === currentIndex ? 'w-6 bg-hi' : 'w-1.5 bg-muted-foreground/30'}`}
+                   />
+                 ))}
+               </div>
+               <div className="font-mono text-[10px] tracking-widest text-muted-foreground flex items-center gap-2 ml-4">
+                 <PenTool className="w-3 h-3" /> GESER / KLIK
+               </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============ ENGINES ============ */
+function Engines() {
+  const CDN = "https://autofeeds.id/landing";
+  const engines = [
+    {
+      id: "M1",
+      icon: <LayoutTemplate className="w-4 h-4" />,
+      title: "Design Grafis",
+      desc: "Brief produk → banner komersial siap upload. Cocok buat feed IG, marketplace, hero website.",
+      bullets: ["Komposisi commercial-grade", "Aspect 1:1 / 4:5 / 16:9", "Sesuai brand color"],
+      img: `${CDN}/ads-1x1/ig-01.jpg`,
+      aspect: "1/1"
+    },
+    {
+      id: "M2",
+      icon: <GalleryHorizontal className="w-4 h-4" />,
+      title: "Carousel Feeds",
+      desc: "Satu cerita, banyak slide. Pilih tipe template & jumlah slide → alur, layout, dan visual tiap slide tersusun otomatis.",
+      bullets: ["12+ tipe template + News", "3–7 slide otomatis nyambung", "Layout tiap slide variatif"],
+      img: `${CDN}/ads-1x1/ig-12.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M3",
+      icon: <Youtube className="w-4 h-4" />,
+      title: "YouTube Thumbnail",
+      desc: "Cetak thumbnail yang clickable: composition, ekspresi, dan teks overlay sudah diatur.",
+      bullets: ["CTR-oriented layout", "Text overlay otomatis", "Subject pose & emotion"],
+      img: `${CDN}/ads-16x9/yt-01.jpg`,
+      aspect: "16/9"
+    },
+    {
+      id: "M4",
+      icon: <Type className="w-4 h-4" />,
+      title: "Typography Ads",
+      desc: "Ads tipografi premium dengan 8 layer kreatif: title, art direction, palette, conversion, dst.",
+      bullets: ["8 layer kreatif", "Premium typography ads", "Per-section copy button"],
+      img: `${CDN}/ads-typography/typo-01.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M5",
+      icon: <FileText className="w-4 h-4" />,
+      title: "Copy Writing",
+      desc: "Auto-generate hook, body, dan CTA — formatnya match dengan visual yang lagi kamu kerjain.",
+      bullets: ["Hook - Body - CTA", "Tone selector", "Match banner context"],
+      img: `${CDN}/modes/copy-preview.jpg`,
+      aspect: "1/1"
+    },
+    {
+      id: "M6",
+      icon: <ScanFace className="w-4 h-4" />,
+      title: "Face Card Analysis ★",
+      desc: "Upload 1 portrait → 5 board analisa premium: face features, style, color, makeup. Personal stylist dalam 1 klik.",
+      bullets: ["5 sub-type analysis", "Editorial magazine quality", "Male & female friendly"],
+      img: `${CDN}/face-card/style-analysis.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M7",
+      icon: <Utensils className="w-4 h-4" />,
+      title: "Menu F&B ★",
+      desc: "9 template premium untuk resto, patisserie, bakery — dari Parisian luxury sampai Korean street food viral.",
+      bullets: ["9 template siap pakai", "5 layout style", "Dynamic menu editor"],
+      img: `${CDN}/menu-fb/patisserie-luxury.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M8",
+      icon: <Hexagon className="w-4 h-4" />,
+      title: "Logo Produk ★",
+      desc: "Logo brand affiliate-ready + tempel logo ke merchandise & brand mockup. Hasil langsung jadi logo.",
+      bullets: ["Logo + Brand Mockup", "Custom HEX palette", "21 media mockup"],
+      img: `${CDN}/ads-1x1/ig-15.jpg`,
+      aspect: "1/1"
+    },
+    {
+      id: "M9",
+      icon: <Shirt className="w-4 h-4" />,
+      title: "Try-On Produk ★",
+      desc: "Upload foto produk → model pakai produknya. Visual try-on/wear-test konversi tinggi untuk affiliate.",
+      bullets: ["Upload produk → try-on", "15 mode try-on", "Optimasi per platform"],
+      img: `${CDN}/ads-1x1/ig-09.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M10",
+      icon: <Star className="w-4 h-4" />,
+      title: "Review Produk ★",
+      desc: "Banner review produk high-converting. 10 review framework + custom warna + wireframe preview live.",
+      bullets: ["10 review framework", "Custom warna + badge", "Wireframe preview live"],
+      img: `${CDN}/ads-1x1/ig-10.jpg`,
+      aspect: "4/5"
+    },
+    {
+      id: "M11",
+      icon: <Clapperboard className="w-4 h-4" />,
+      title: "Video Storyboard ★",
+      desc: "Storyboard board scene-by-scene yang dibuat otomatis sesuai durasi — landscape 16:9, banyak scene cepat.",
+      bullets: ["Board 16:9 landscape", "Scene auto per durasi", "VO + overlay + visual"],
+      img: `${CDN}/ads-16x9/yt-02.jpg`,
+      aspect: "16/9"
+    }
+  ];
+
+  return (
+    <section className="py-20 lg:py-28 bg-background border-b border-border">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="max-w-3xl mb-16">
+          <SectionLabel index="11 ENGINE" label="1 STUDIO" />
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+            Sebelas <span className="text-hi">engine kreatif</span> yang dirancang berbeda untuk setiap kebutuhan visual.
+          </h2>
+          <p className="mt-6 text-muted-foreground text-lg/relaxed">
+            Bukan satu generator yang dipakai untuk semua. Tiap mode punya logic sendiri agar output AI-nya konsisten sesuai format akhirnya — termasuk Carousel Feeds & 4 affiliate tools baru.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
+          {engines.map((engine) => (
+            <motion.div 
+              key={engine.id}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              className="flex flex-row gap-4 sm:gap-6 p-4 sm:p-6 rounded-3xl border border-border bg-surface/30 hover:border-hi/30 transition-colors"
+            >
+              <div className="flex-1 space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-surface border border-border flex items-center justify-center text-hi shrink-0">
+                    {engine.icon}
+                  </div>
+                  <div className="font-mono text-[8px] sm:text-[10px] tracking-widest text-muted-foreground uppercase">
+                    /ENGINE · {engine.id}
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-base sm:text-xl font-semibold mb-1 sm:mb-2 flex items-center gap-2">
+                    {engine.title.includes("★") ? (
+                      <>
+                        {engine.title.replace(" ★", "")}
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-hi fill-hi shrink-0" />
+                      </>
+                    ) : engine.title}
+                  </h3>
+                  <p className="text-[11px] sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    {engine.desc}
+                  </p>
+                </div>
+
+                <ul className="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
+                  {engine.bullets.map((bullet, idx) => (
+                    <li key={idx} className="flex items-start gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-muted-foreground">
+                      <span className="text-hi mt-1 sm:mt-1.5 text-[6px] sm:text-[8px]">●</span>
+                      <span className="leading-tight">{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="w-[100px] sm:w-[160px] lg:w-[200px] shrink-0">
+                <div className={`relative w-full rounded-xl overflow-hidden border border-border/50 bg-black/20 ${
+                  engine.aspect === "1/1" ? "aspect-square" :
+                  engine.aspect === "4/5" ? "aspect-[4/5]" : "aspect-[16/9]"
+                }`}>
+                  <img src={engine.img} alt={engine.title} className="w-full h-full object-cover" />
+                  <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 text-[8px] sm:text-[10px] font-mono text-white/80 bg-black/40 backdrop-blur px-1 sm:px-1.5 py-0.5 rounded flex items-center gap-1 border border-white/10">
+                    <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 rotate-[-45deg]" /> {engine.aspect}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -557,13 +910,13 @@ function Comparison() {
               ))}
             </div>
           </motion.div>
-          <motion.div variants={fadeUp} className="rounded-2xl border border-hi/40 p-6 bg-hi/[0.04]">
-            <div className="font-mono text-xs text-hi">/02 · CARA SUPER AI FEED (INSTAN)</div>
-            <div className="mt-5 divide-y divide-border">
+          <motion.div variants={fadeUp} className="rounded-2xl border border-hi p-6 bg-hi shadow-xl">
+            <div className="font-mono text-xs font-bold text-black/80">/02 · CARA SUPER AI FEED (INSTAN)</div>
+            <div className="mt-5 divide-y divide-black/10">
               {rows.map(([k, , v]) => (
                 <div key={k} className="py-3 flex justify-between gap-4 text-sm">
-                  <span className="text-muted-foreground">{k}</span>
-                  <span className="font-semibold">{v}</span>
+                  <span className="text-black/80">{k}</span>
+                  <span className="font-bold text-black">{v}</span>
                 </div>
               ))}
             </div>
@@ -583,34 +936,74 @@ function Testimonials() {
     { n: "Kirana S.", r: "COURSE CREATOR", q: "Banner promo kelas, e-book cover, slide cover — semua dari satu studio. Brand jadi keliatan konsisten." },
     { n: "Yoga P.", r: "UMKM KOPI SPECIALTY", q: "Awalnya skeptis, tapi setelah lihat hasil typography mode-nya... ya udah, langsung lifetime." },
     { n: "Dinda L.", r: "AGENCY PARTNER", q: "Margin proyek visual naik karena waktu produksi ke-cut drastis. Klien gak tau bedanya, dan itu poinnya." },
+    { n: "Budi T.", r: "OWNER F&B", q: "Dulu pusing mikirin biaya foto produk menu baru. Sekarang modal foto HP, di-generate di sini, langsung kelihatan kayak difotoin fotografer pro." },
+    { n: "Siska K.", r: "AFFILIATE MARKETER", q: "Bikin video TikTok & banner review jadi super instan. Nggak perlu ngedit ribet, konversi langsung kerasa." },
+    { n: "Tommy S.", r: "DIGITAL AGENCY", q: "Klien sering minta revisi dadakan. Pake ini, revisi visual cuma hitungan detik. Benar-benar menyelamatkan nyawa tim kreatif kami." },
+    { n: "Lita P.", r: "FASHION BRAND", q: "Catalog baju tiap bulan sekarang gampang banget dibuat. Moodboard yang kita mau langsung divisualisasikan dengan sempurna." },
+    { n: "Rizky N.", r: "FREELANCE DESIGNER", q: "Awalnya ngerasa tersaingi, ternyata malah bantu kerjaan. Kerjaan yang biasa 2 hari kelar 2 jam. Klien puas, invoice jalan terus." },
+    { n: "Anisa W.", r: "BEAUTY CLINIC", q: "Promo bulanan klinik sekarang selalu on-time. Template-nya elegan dan nggak kelihatan murahan sama sekali." },
+    { n: "Kevin O.", r: "E-COMMERCE SELLER", q: "CTR di Tokopedia naik drastis sejak pakai thumbnail dari sini. Jauh lebih eye-catching dibanding kompetitor." },
+    { n: "Nadia T.", r: "PROPERTY AGENT", q: "Listing rumah jadi kelihatan lebih mewah dan tertata. Calon buyer lebih banyak yang nanya karena visualnya proper." },
+    { n: "Hendra K.", r: "SOFTWARE HOUSE", q: "Buat mockup UI/UX buat pitch deck sekarang instan. Cukup masukin screenshot, langsung di-frame dengan cantik." },
+    { n: "Maya D.", r: "EVENT ORGANIZER", q: "Bikin teaser event di Instagram nggak perlu pusing lagi mikirin layout. Tinggal masukin teks, AI yang ngatur komposisi." },
+    { n: "Faisal M.", r: "AUTOMOTIVE DEALER", q: "Brosur digital promo mobil laku keras. Desainnya clean dan maskulin, pas banget buat target market saya." },
+    { n: "Tari I.", r: "WEDDING VENDOR", q: "Portfolio undangan digital makin estetik. Klien selalu suka sama variasi gaya yang ditawarin." },
+    { n: "Doni E.", r: "RESELLER GADGET", q: "Dulu sering repot crop foto produk. Sekarang otomatis dibikin rapi dan ada shadow-nya. Keren abis!" },
+    { n: "Vina R.", r: "BAKERY OWNER", q: "Promo kue ulang tahun tiap weekend selalu fresh desainnya. Padahal nggak pernah hire desainer khusus." },
+    { n: "Gilang P.", r: "FITNESS COACH", q: "Bikin banner kelas online atau tips diet di Instagram jadi sangat praktis. Audiens lebih gampang baca." },
+    { n: "Sari F.", r: "TRAVEL AGENT", q: "Paket tour jadi kelihatan lebih menjanjikan. Pemandangan dan teks promo menyatu dengan sangat natural." },
+    { n: "Bayu A.", r: "PODCASTER", q: "Cover episode baru sekarang selalu konsisten tapi tetap ada variasi. Branding podcast saya jadi makin kuat." },
+    { n: "Citra H.", r: "JEWELRY BRAND", q: "Highlight kilau perhiasan di foto jadi gampang banget. Kelihatan premium dan elegan tanpa ribet." },
+    { n: "Raka S.", r: "PET SHOP", q: "Promo makanan kucing anjing jadi lebih lucu dan menarik. Desainnya nge-pop banget di feed." },
+    { n: "Putri L.", r: "MOM & BABY SHOP", q: "Warna-warna pastel dan layout untuk produk bayi-nya sangat pas. Bikin ibu-ibu gampang tertarik buat klik." },
+    { n: "Evan K.", r: "TECH STARTUP", q: "Buat kebutuhan marketing campaign bulanan, ini bener-bener solusi hemat budget tapi impact-nya maksimal." }
   ];
-  const palette = ["#a3e635", "#facc15", "#fb7185", "#60a5fa", "#c084fc", "#f97316"];
+
+  const col1 = items.slice(0, 9);
+  const col2 = items.slice(9, 18);
+  const col3 = items.slice(18, 27);
+
+  const renderCol = (itemsCol: typeof items, animationClass: string, isMobile: boolean) => (
+    <div className={`flex flex-col gap-4 ${animationClass} ${isMobile ? 'block lg:hidden w-full absolute' : 'hidden lg:flex'}`}>
+      {[...itemsCol, ...itemsCol].map((t, i) => (
+        <figure key={i} className="rounded-2xl border border-border bg-background p-6 flex flex-col hover:border-hi/50 transition-colors">
+          <p className="text-sm/relaxed text-muted-foreground">"{t.q}"</p>
+          <div className="mt-6 flex items-center gap-3">
+            <div className="h-8 w-8 rounded-full bg-hi flex items-center justify-center font-bold text-primary-foreground shrink-0">
+              {t.n.charAt(0)}
+            </div>
+            <div>
+              <div className="text-sm font-semibold">{t.n}</div>
+              <div className="font-mono text-[10px] text-muted-foreground">{t.r}</div>
+            </div>
+          </div>
+        </figure>
+      ))}
+    </div>
+  );
+
   return (
-    <section className="border-b border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
+    <section className="border-b border-border bg-surface/20 py-20 lg:py-28 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionLabel index="/04" label="DARI USER BATCH AWAL" />
         <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Yang sudah pakai <span className="text-muted-foreground">nggak balik lagi</span> ke cara lama.
+          Yang sudah pakai <span className="text-muted-foreground">nggak balik lagi ke cara lama.</span>
         </h2>
-        <motion.div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
-          {items.map((t, i) => (
-            <motion.figure key={i} variants={fadeUp} className="rounded-2xl border border-border bg-background p-6 flex flex-col">
-              <blockquote className="text-base leading-relaxed flex-1">"{t.q}"</blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-background"
-                  style={{ background: palette[i] }}
-                >
-                  {t.n.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-sm font-semibold">{t.n}</div>
-                  <div className="font-mono text-[10px] tracking-widest text-muted-foreground">{t.r}</div>
-                </div>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </motion.div>
+
+        {/* Height container controls the viewport for vertical scrolling */}
+        <div className="relative mt-12 h-[600px] overflow-hidden rounded-3xl [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+          {/* Desktop: 3 Columns */}
+          <div className="hidden lg:grid grid-cols-3 gap-6 absolute inset-0">
+            {renderCol(col1, 'scroll-y-down', false)}
+            {renderCol(col2, 'scroll-y-up', false)}
+            {renderCol(col3, 'scroll-y-down', false)}
+          </div>
+
+          {/* Mobile: 1 Column moving down */}
+          <div className="block lg:hidden absolute inset-0 w-full px-1">
+            {renderCol(items, 'scroll-y-down', true)}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -769,21 +1162,42 @@ function Showcase() {
 }
 
 
-/* ============ PRICING ============ */
 function Pricing() {
   const [t, setT] = useState({ d: 6, h: 23, m: 59, s: 55 });
+
   useEffect(() => {
-    const id = setInterval(() => {
-      setT((p) => {
-        let { d, h, m, s } = p;
-        s--;
-        if (s < 0) { s = 59; m--; }
-        if (m < 0) { m = 59; h--; }
-        if (h < 0) { h = 23; d--; }
-        if (d < 0) { d = 6; h = 23; m = 59; s = 55; }
-        return { d, h, m, s };
+    // Total durasi: 6 hari, 23 jam, 59 menit, 55 detik
+    const DURATION = 6 * 24 * 60 * 60 * 1000 + 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 55 * 1000;
+    
+    let target = localStorage.getItem("superfeed_timer_target");
+    if (!target) {
+      target = (Date.now() + DURATION).toString();
+      localStorage.setItem("superfeed_timer_target", target);
+    }
+    
+    let targetTime = parseInt(target, 10);
+
+    const updateTimer = () => {
+      const now = Date.now();
+      let diff = targetTime - now;
+
+      // Apabila timer habis, settingkan loop/mengulang
+      if (diff <= 0) {
+        targetTime = now + DURATION;
+        localStorage.setItem("superfeed_timer_target", targetTime.toString());
+        diff = DURATION;
+      }
+
+      setT({
+        d: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        h: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        m: Math.floor((diff / 1000 / 60) % 60),
+        s: Math.floor((diff / 1000) % 60),
       });
-    }, 1000);
+    };
+
+    updateTimer();
+    const id = setInterval(updateTimer, 1000);
     return () => clearInterval(id);
   }, []);
 

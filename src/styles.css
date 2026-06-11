@@ -95,9 +95,30 @@
   .ticker {
     animation: ticker 40s linear infinite;
   }
+  .ticker-reverse {
+    animation: ticker-reverse 40s linear infinite;
+  }
   @keyframes ticker {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+  }
+  @keyframes ticker-reverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  .scroll-y-up {
+    animation: scroll-y-up 60s linear infinite;
+  }
+  .scroll-y-down {
+    animation: scroll-y-down 60s linear infinite;
+  }
+  @keyframes scroll-y-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+  @keyframes scroll-y-down {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
   }
   .glow-lime {
     box-shadow: 0 0 0 1px oklch(0.85 0.18 90 / 0.4), 0 20px 60px -20px oklch(0.85 0.18 90 / 0.45);
