@@ -13,169 +13,160 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-const NAV = [
-  { href: "#fitur", label: "Fitur" },
-  { href: "#cara-kerja", label: "Cara Kerja" },
-  { href: "#showcase", label: "Showcase" },
-  { href: "#harga", label: "Harga" },
-  { href: "#faq", label: "FAQ" },
-];
-
 const CHECKOUT_URL = "https://copilotmarketing.id/daftar-feed";
 
-function LandingPage() {
-  return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
-      <Header />
-      <main>
-        <Hero />
-        <Marquee />
-        <ValueProp />
-        <Audience />
-        <Comparison />
-        <Testimonials />
-        <Showcase />
-        <Pricing />
-        <FAQ />
-        <Closing />
-      </main>
-      <Footer />
-      <SalesPing />
-    </div>
-  );
+const STYLE = `
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: #222; background: #fff; }
+:root {
+  --red: #7c3aed;
+  --red-dark: #5b21b6;
+  --orange: #8b5cf6;
+  --cream: #FFF8EE;
+  --green: #2E7D32;
 }
-
-/* ============ HEADER ============ */
-function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const f = () => setScrolled(window.scrollY > 8);
-    f();
-    window.addEventListener("scroll", f);
-    return () => window.removeEventListener("scroll", f);
-  }, []);
-  return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-xl bg-background/80 border-b border-border" : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-baseline gap-3">
-          <span className="font-mono text-xs text-hi">◆</span>
-          <span className="font-semibold tracking-tight">Super AI Feed</span>
-          <span className="font-mono text-[10px] text-muted-foreground hidden sm:inline">v1.2 · INSTANT DESIGN STUDIO</span>
-        </a>
-        <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">
-              {n.label}
-            </a>
-          ))}
-        </nav>
-        <a
-          href="#harga"
-          className="inline-flex items-center gap-2 rounded-full bg-hi text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition"
-        >
-          Klaim Early Access
-          <span aria-hidden>→</span>
-        </a>
-      </div>
-    </header>
-  );
+.wrap { max-width: 820px; margin: 0 auto; padding: 60px 24px; }
+.hl-wrap { text-align: center; margin-bottom: 14px; }
+.hl-box {
+  display: inline-block; border: 2px solid var(--red);
+  padding: 12px 20px; font-size: 1.35rem; font-weight: 900;
+  line-height: 1.4; color: #222;
 }
-
-/* ============ HERO ============ */
-function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden border-b border-border">
-      <div className="absolute inset-0 grid-noise opacity-[0.18] pointer-events-none" />
-      <div className="absolute -top-32 -right-32 w-[40rem] h-[40rem] rounded-full bg-hi/10 blur-3xl pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
-            <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" />
-            Early Access · Batch Pertama
-          </div>
-          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
-            Tanpa Designer,<br />
-            Buat Konten Ala <span className="text-hi">Desain Grafis</span> Profesional<br className="hidden sm:block" />
-            dalam Hitungan Detik.
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Generate desain iklan profesional untuk feed, ads, dan branding hanya dalam beberapa detik.
-            Tanpa belajar desain, tanpa langganan tool mahal, tanpa nunggu revisi tiga hari.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <a
-              href={CHECKOUT_URL}
-              className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition"
-            >
-              Ambil Early Access — Rp 49.000
-            </a>
-            <a
-              href="#showcase"
-              className="inline-flex justify-center items-center gap-2 rounded-xl border border-border bg-surface px-6 py-4 text-base font-medium hover:bg-surface-2 transition"
-            >
-              Lihat Hasil Generate →
-            </a>
-          </div>
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
-            <li>✓ Sekali bayar — seumur hidup</li>
-            <li>✓ 10 mode kreatif</li>
-            <li>✓ 48+ kategori siap pakai</li>
-          </ul>
-        </div>
-
-        {/* Mockup */}
-        <div className="lg:col-span-5">
-          <MockupCard />
-        </div>
-      </div>
-    </section>
-  );
+.premium-reveal-box {
+  background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%);
+  border: 1px solid #ddd6fe;
+  border-radius: 16px;
+  padding: 40px 30px;
+  margin-top: 40px;
+  box-shadow: 0 12px 35px rgba(124, 58, 237, 0.08);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  z-index: 1;
 }
+.premium-reveal-box::before {
+  content: '✨';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 90px;
+  opacity: 0.05;
+  transform: rotate(15deg);
+  z-index: -1;
+}
+.premium-reveal-box .icon-top {
+  background: var(--red);
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+.benefit-list { margin: 20px 0; padding-left: 20px; list-style: none; text-align: left; }
+.benefit-list li { margin-bottom: 12px; font-size: 1.05rem; position: relative; padding-left: 30px; }
+.benefit-list li::before { content: '✅'; position: absolute; left: 0; top: 0; font-size: 1.2rem; }
+.cta-btn {
+  display: block; background: linear-gradient(135deg, var(--red), var(--orange));
+  color: #fff; text-align: center; padding: 16px 32px;
+  border-radius: 50px; font-size: 1.15rem; font-weight: 900;
+  text-decoration: none; cursor: pointer; border: none;
+  margin: 28px auto 0; max-width: 520px;
+  box-shadow: 0 5px 18px rgba(124,58,237,.38);
+  transition: transform .2s, box-shadow .2s; letter-spacing: .4px;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+.vstack { list-style: none; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
+.vstack li {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 13px 18px; border-bottom: 1px solid #eee; font-size: .9rem;
+}
+.price-box {
+  border: 2px solid #e0e0e0; border-radius: 12px;
+  padding: 26px; text-align: center; margin: 24px 0;
+}
+.price-box .actual {
+  font-size: 2.4rem; font-weight: 900; color: var(--red);
+  background: #f5f3ff; padding: 6px 24px; border-radius: 8px;
+  display: inline-block; margin: 6px 0;
+}
+.cd-wrap { border: 1px solid #e0e0e0; border-radius: 12px; padding: 22px; text-align: center; margin: 14px 0; }
+.cd-timers { display: flex; justify-content: center; gap: 18px; margin-bottom: 12px; }
+.cd-unit { display: flex; flex-direction: column; align-items: center; }
+.cd-circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 4px solid var(--red); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.7rem; font-weight: 900; color: var(--red); margin-bottom: 5px;
+}
+.cd-lbl { font-size: .68rem; text-transform: uppercase; color: #999; letter-spacing: 1px; }
+.faq-container { margin-top: 60px; margin-bottom: 40px; }
+.faq-title { text-align: center; font-size: 1.8rem; font-weight: 800; color: #111827; margin-bottom: 30px; }
+.faq-item {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+  padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  text-align: left;
+}
+.faq-item h4 { margin: 0 0 10px 0; font-size: 1.1rem; color: var(--red-dark); font-weight: 700; }
+.faq-item p { margin: 0; font-size: 1.05rem; color: #4b5563; line-height: 1.6; }
+
+@media(max-width:600px){
+  .wrap { padding: 40px 16px; }
+  .hl-box { font-size: 1.1rem; padding: 10px 16px; }
+  .vstack li { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 16px; }
+  .vstack li.total { align-items: center; text-align: center; }
+  .price-box .actual { font-size: 1.85rem; }
+  .cd-circle { width: 58px; height: 58px; font-size: 1.3rem; }
+}
+`;
 
 function MockupCard() {
   return (
-    <div className="relative rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-2">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-hi/80" />
+    <div className="relative rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden text-left" style={{backgroundColor: '#fafafa', border: '1px solid #ddd'}}>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-2" style={{backgroundColor: '#f1f1f1', display: 'flex', justifyContent: 'space-between', padding: '10px'}}>
+        <div className="flex items-center gap-2" style={{display: 'flex', gap: '8px'}}>
+          <span className="w-2.5 h-2.5 rounded-full bg-destructive/70" style={{width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444'}} />
+          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" style={{width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#eab308'}} />
+          <span className="w-2.5 h-2.5 rounded-full bg-hi/80" style={{width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#8b5cf6'}} />
         </div>
-        <div className="font-mono text-[10px] text-muted-foreground">app.superaifeed.id/studio</div>
-        <div className="flex items-center gap-1.5 font-mono text-[10px] text-hi">
-          <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" /> LIVE
+        <div className="font-mono text-[10px] text-muted-foreground" style={{fontSize: '10px', color: '#888'}}>app.superaifeed.id/studio</div>
+        <div className="flex items-center gap-1.5 font-mono text-[10px] text-hi" style={{fontSize: '10px', color: '#8b5cf6', display: 'flex', alignItems: 'center', gap: '4px'}}>
+          <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" style={{width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#8b5cf6'}} /> LIVE
         </div>
       </div>
-      <div className="p-5 space-y-4">
-        <div className="font-mono text-[10px] text-muted-foreground tracking-widest">/ BANNER GENERATOR</div>
+      <div className="p-5 space-y-4" style={{padding: '20px'}}>
+        <div className="font-mono text-[10px] text-muted-foreground tracking-widest" style={{fontSize: '10px', color: '#888', letterSpacing: '1px', marginBottom: '10px'}}>/ BANNER GENERATOR</div>
         <Field label="BRAND" value="AuraSkin" />
         <Field label="HEADLINE" value="Premium Sunscreen SPF 50" />
         <Field label="STYLE" value="Minimal Clean" />
-        <div className="grid grid-cols-3 gap-2 pt-1">
+        <div className="grid grid-cols-3 gap-2 pt-1" style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', marginTop: '10px'}}>
           {["Soft", "Editorial", "Bold"].map((s, i) => (
             <button
               key={s}
-              className={`text-xs py-2 rounded-md border ${
-                i === 1 ? "border-hi bg-hi/10 text-hi" : "border-border text-muted-foreground"
-              }`}
+              style={{
+                fontSize: '12px', padding: '8px', borderRadius: '6px', border: '1px solid',
+                borderColor: i === 1 ? '#8b5cf6' : '#ddd',
+                backgroundColor: i === 1 ? '#f5f3ff' : 'transparent',
+                color: i === 1 ? '#8b5cf6' : '#555',
+              }}
             >
               {s}
             </button>
           ))}
         </div>
-        <button className="w-full mt-2 rounded-md bg-hi text-primary-foreground py-3 text-sm font-semibold">
+        <button style={{width: '100%', marginTop: '15px', borderRadius: '6px', backgroundColor: '#8b5cf6', color: '#fff', padding: '12px', fontSize: '14px', fontWeight: 'bold', border: 'none'}}>
           Generate Design ⚡
         </button>
-        <div className="grid grid-cols-3 gap-2 pt-2">
+        <div className="grid grid-cols-3 gap-2 pt-2" style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', marginTop: '15px'}}>
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="aspect-square rounded-md"
               style={{
+                aspectRatio: '1', borderRadius: '6px',
                 background: [
                   "linear-gradient(135deg,#f4ead1,#d1bf8a)",
                   "linear-gradient(135deg,#1a1a1a,#3a3a3a)",
@@ -192,361 +183,14 @@ function MockupCard() {
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">{label}</div>
-      <div className="rounded-md border border-border bg-background/40 px-3 py-2.5 text-sm">{value}</div>
+    <div style={{marginBottom: '10px'}}>
+      <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1" style={{fontSize: '10px', color: '#888', letterSpacing: '1px'}}>{label}</div>
+      <div className="rounded-md border border-border bg-background/40 px-3 py-2.5 text-sm" style={{borderRadius: '6px', border: '1px solid #ddd', padding: '10px', fontSize: '14px', backgroundColor: '#fff'}}>{value}</div>
     </div>
   );
 }
 
-/* ============ MARQUEE ============ */
-function Marquee() {
-  const items = [
-    "10 MODE KREATIF", "48+ KATEGORI", "UNLIMITED RENDER", "MULTI-FORMAT",
-    "BRAND-LOCKED", "SEKALI BAYAR", "UPDATE LIFETIME", "COMMERCIAL-GRADE",
-  ];
-  return (
-    <div className="border-b border-border bg-surface overflow-hidden">
-      <div className="flex ticker whitespace-nowrap py-4 font-mono text-xs tracking-[0.2em] text-muted-foreground">
-        {[...items, ...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="px-8 inline-flex items-center gap-8">
-            {t}<span className="text-hi">◆</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ============ VALUE PROP ============ */
-function ValueProp() {
-  const items = [
-    { t: "Output presisi", d: "Bukan template generik — tiap field dipetakan ke karakter visual commercial-grade." },
-    { t: "48+ kategori siap", d: "F&B, fashion, beauty, otomotif, edukasi, finance, sampai niche gaming — preset on click." },
-    { t: "Multi-format output", d: "Banner, thumbnail, typography, story, reels — semua format lahir dari satu studio." },
-    { t: "Sekali bayar", d: "Tanpa langganan bulanan. Tanpa kredit per render. Akses penuh selamanya begitu lunas." },
-    { t: "Render unlimited", d: "Sebanyak apapun visual yang kamu butuh — gak ada batas, gak ada throttle." },
-    { t: "Update lifetime", d: "Mode baru, kategori baru, opsi gaya baru — semua di-push otomatis ke akunmu." },
-  ];
-  return (
-    <section id="fitur" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/01" label="YANG BIKIN BEDA" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Bukan sekedar template generator —<br />
-          <span className="text-muted-foreground">studio yang serius.</span>
-        </h2>
-        <p className="mt-5 max-w-2xl text-muted-foreground">
-          Setiap mode di Super AI Feed 1.2 dirancang dari hasil reverse-engineering brief studio kreatif beneran,
-          lalu disederhanakan jadi form yang siapapun bisa isi.
-        </p>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
-          {items.map((it, i) => (
-            <div key={i} className="bg-background p-7 group hover:bg-surface transition">
-              <div className="font-mono text-xs text-hi">/0{i + 1}</div>
-              <div className="mt-4 text-lg font-semibold">{it.t}</div>
-              <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.d}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SectionLabel({ index, label }: { index: string; label: string }) {
-  return (
-    <div className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-muted-foreground">
-      <span className="text-hi">{index}</span>
-      <span className="w-8 h-px bg-border" />
-      <span>{label}</span>
-    </div>
-  );
-}
-
-/* ============ AUDIENCE ============ */
-function Audience() {
-  const items = [
-    { t: "UMKM & Brand Owner", d: "Konten produk harian tanpa harus hire designer freelance tiap minggu." },
-    { t: "Performance Marketer", d: "Bikin 20 variasi creative test untuk A/B Meta Ads dalam satu sore." },
-    { t: "Content Creator", d: "Thumbnail YouTube dan cover TikTok yang konsisten gaya, gak mati ide." },
-    { t: "Course Creator & Mentor", d: "Banner promosi kelas, ebook cover, slide pembuka — semua dari satu studio." },
-    { t: "Agency & Freelancer", d: "Brief klien masuk pagi, mockup ready siang. Margin proyek naik tajam." },
-    { t: "Reseller & Dropshipper", d: "Asset visual untuk tiap SKU baru tanpa nambah biaya produksi konten." },
-  ];
-  return (
-    <section id="cara-kerja" className="border-b border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/02" label="DIPAKAI OLEH" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Dibuat untuk enam tipe orang ini.
-        </h2>
-        <p className="mt-5 max-w-2xl text-muted-foreground">
-          Kalau salah satu deskripsi di bawah terdengar seperti kamu — Super AI Feed 1.2 akan langsung
-          kepake hari pertama akses.
-        </p>
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((it, i) => (
-            <div key={i} className="rounded-xl border border-border bg-background p-6 hover:border-hi/40 transition">
-              <div className="flex items-center justify-between">
-                <div className="font-mono text-xs text-muted-foreground">0{i + 1}</div>
-                <div className="w-8 h-8 rounded-full bg-hi/10 border border-hi/30 flex items-center justify-center text-hi text-xs">
-                  ◆
-                </div>
-              </div>
-              <div className="mt-4 text-lg font-semibold">{it.t}</div>
-              <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.d}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============ COMPARISON ============ */
-function Comparison() {
-  const rows = [
-    ["Waktu produksi 1 banner", "4–24 jam", "Di bawah 1 menit"],
-    ["Biaya per banner", "Rp 50–500 ribu", "Termasuk paket"],
-    ["Konsistensi gaya", "Tergantung mood", "Brand-locked"],
-    ["Skill teknis dibutuhkan", "Photoshop / Illustrator", "Cuma isi form"],
-    ["Revisi & iterasi", "Antri designer", "Re-generate instan"],
-    ["Skala output", "Bottleneck", "Unlimited"],
-  ];
-  return (
-    <section className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/03" label="BEFORE / AFTER" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Cara lama vs <span className="text-hi">cara Super AI Feed</span>.
-        </h2>
-        <div className="mt-12 grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-border p-6 bg-background">
-            <div className="font-mono text-xs text-muted-foreground">/01 · CARA KONVENSIONAL (LAMBAT)</div>
-            <div className="mt-5 divide-y divide-border">
-              {rows.map(([k, v]) => (
-                <div key={k} className="py-3 flex justify-between gap-4 text-sm">
-                  <span className="text-muted-foreground">{k}</span>
-                  <span className="text-foreground/80 line-through decoration-destructive/60">{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-hi/40 p-6 bg-hi/[0.04]">
-            <div className="font-mono text-xs text-hi">/02 · CARA SUPER AI FEED (INSTAN)</div>
-            <div className="mt-5 divide-y divide-border">
-              {rows.map(([k, , v]) => (
-                <div key={k} className="py-3 flex justify-between gap-4 text-sm">
-                  <span className="text-muted-foreground">{k}</span>
-                  <span className="font-semibold">{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============ TESTIMONIALS ============ */
-function Testimonials() {
-  const items = [
-    { n: "Rendra A.", r: "OWNER BRAND SKINCARE", q: "Biasanya brief ke designer 3 hari kelar, sekarang sore racik design — malamnya udah jalanin Meta Ads. Game changer buat tim kecil." },
-    { n: "Aulia M.", r: "YOUTUBER 240K SUBS", q: "Thumbnail mode-nya ngeselin di awal (kenapa enak banget), sekarang gak pernah lagi mikir layout dari nol." },
-    { n: "Bagas D.", r: "PERFORMANCE MARKETER", q: "Buat 30 variant creative test pagi, malamnya udah ada winning ads. ROAS naik 1.8x dalam dua minggu." },
-    { n: "Kirana S.", r: "COURSE CREATOR", q: "Banner promo kelas, e-book cover, slide cover — semua dari satu studio. Brand jadi keliatan konsisten." },
-    { n: "Yoga P.", r: "UMKM KOPI SPECIALTY", q: "Awalnya skeptis, tapi setelah lihat hasil typography mode-nya... ya udah, langsung lifetime." },
-    { n: "Dinda L.", r: "AGENCY PARTNER", q: "Margin proyek visual naik karena waktu produksi ke-cut drastis. Klien gak tau bedanya, dan itu poinnya." },
-  ];
-  const palette = ["#a3e635", "#facc15", "#fb7185", "#60a5fa", "#c084fc", "#f97316"];
-  return (
-    <section className="border-b border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/04" label="DARI USER BATCH AWAL" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Yang sudah pakai <span className="text-muted-foreground">nggak balik lagi</span> ke cara lama.
-        </h2>
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((t, i) => (
-            <figure key={i} className="rounded-2xl border border-border bg-background p-6 flex flex-col">
-              <blockquote className="text-base leading-relaxed flex-1">"{t.q}"</blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-background"
-                  style={{ background: palette[i] }}
-                >
-                  {t.n.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-sm font-semibold">{t.n}</div>
-                  <div className="font-mono text-[10px] tracking-widest text-muted-foreground">{t.r}</div>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============ SHOWCASE ============ */
-const CDN = "https://autofeeds.id/landing";
-const num = (n: number) => String(n).padStart(2, "0");
-const range = (n: number) => Array.from({ length: n }, (_, i) => i + 1);
-
-const PREVIEW_MODES = [
-  { label: "BANNER", img: `${CDN}/modes/banner-preview.jpg` },
-  { label: "THUMBNAIL", img: `${CDN}/modes/thumbnail-preview.jpg` },
-  { label: "TYPOGRAPHY", img: `${CDN}/modes/typography-preview.jpg` },
-  { label: "COPY", img: `${CDN}/modes/copy-preview.jpg` },
-];
-
-const TYPO_ADS = range(20).map((i) => `${CDN}/ads-typography/typo-${num(i)}.jpg`);
-const VERT_ADS = range(20).map((i) => `${CDN}/ads-9x16/vert-${num(i)}.jpg`);
-const LANDSCAPE_ADS = range(20).map((i) => `${CDN}/ads-16x9/yt-${num(i)}.jpg`);
-const FEED_ADS = range(20).map((i) => `${CDN}/ads-1x1/ig-${num(i)}.jpg`);
-
-const FACE_CARDS = [
-  { t: "Face Features", img: `${CDN}/face-card/face-features.jpg` },
-  { t: "Spectacles Guide", img: `${CDN}/face-card/spectacles-guide.jpg` },
-  { t: "Style Analysis", img: `${CDN}/face-card/style-analysis.jpg` },
-  { t: "Color Analysis", img: `${CDN}/face-card/color-analysis.jpg` },
-  { t: "Makeup Analysis", img: `${CDN}/face-card/makeup-analysis.jpg` },
-];
-
-const MENU_FB = [
-  { t: "Patisserie Luxury", img: `${CDN}/menu-fb/patisserie-luxury.jpg` },
-  { t: "Healthy Editorial", img: `${CDN}/menu-fb/healthy-editorial.jpg` },
-  { t: "Korean Street", img: `${CDN}/menu-fb/korean-street.jpg` },
-  { t: "Indo Heritage", img: `${CDN}/menu-fb/indo-heritage.jpg` },
-  { t: "Japanese Premium", img: `${CDN}/menu-fb/japanese-premium.jpg` },
-  { t: "Retro Marketplace", img: `${CDN}/menu-fb/retro-marketplace.jpg` },
-  { t: "Homemade Cozy", img: `${CDN}/menu-fb/homemade-cozy.jpg` },
-  { t: "Betawi Festive", img: `${CDN}/menu-fb/betawi-festive.jpg` },
-  { t: "Rice Bowl Modern", img: `${CDN}/menu-fb/rice-bowl-modern.jpg` },
-];
-
-function ShowGrid({
-  items, aspect, label, cols = "grid-cols-2 md:grid-cols-4 lg:grid-cols-5",
-}: { items: string[]; aspect: string; label: string; cols?: string }) {
-  return (
-    <div>
-      <div className="flex items-baseline justify-between mb-4">
-        <div className="font-mono text-xs text-hi tracking-widest">/{label}</div>
-        <div className="font-mono text-[10px] text-muted-foreground">{items.length} VARIANT</div>
-      </div>
-      <div className={`grid ${cols} gap-2 sm:gap-3`}>
-        {items.map((src, i) => (
-          <div
-            key={src}
-            className={`relative ${aspect} rounded-lg border border-border overflow-hidden bg-surface group`}
-          >
-            <img
-              src={src}
-              alt={`${label} ${i + 1}`}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute top-2 right-2 font-mono text-[9px] text-white/80 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded">
-              {num(i + 1)}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Showcase() {
-  return (
-    <section id="showcase" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/05" label="SHOWCASE" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Hasil yang naik feed kemarin.
-        </h2>
-        <p className="mt-5 max-w-2xl text-muted-foreground">
-          Setiap variant di bawah lahir dari satu studio — beda kategori, beda gaya, beda format.
-          Semua tanpa edit manual.
-        </p>
-
-        {/* Preview Modes */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
-          {PREVIEW_MODES.map((m) => (
-            <div key={m.label} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface group">
-              <img src={m.img} alt={m.label} loading="lazy" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-3 left-3 right-3">
-                <div className="font-mono text-[10px] tracking-widest text-hi">MODE</div>
-                <div className="text-white font-semibold mt-1">{m.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 space-y-16">
-          <ShowGrid items={TYPO_ADS} aspect="aspect-[4/5]" label="TYPOGRAPHY ADS · 4:5" />
-          <ShowGrid items={VERT_ADS} aspect="aspect-[9/16]" label="VERTICAL CONTENT · 9:16" />
-          <ShowGrid items={LANDSCAPE_ADS} aspect="aspect-video" label="LANDSCAPE & THUMBNAIL · 16:9" cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
-          <ShowGrid items={FEED_ADS} aspect="aspect-square" label="FEED ADS · 1:1" />
-
-          {/* Face Card */}
-          <div>
-            <div className="flex items-baseline justify-between mb-4">
-              <div className="font-mono text-xs text-hi tracking-widest">/FACE CARD ANALYSIS</div>
-              <div className="font-mono text-[10px] text-muted-foreground">5 ANALYSIS</div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {FACE_CARDS.map((f) => (
-                <div key={f.t} className="relative aspect-[3/4] rounded-xl border border-border overflow-hidden bg-surface">
-                  <img src={f.img} alt={f.t} loading="lazy" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-white text-sm font-semibold">{f.t}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Menu F&B */}
-          <div>
-            <div className="flex items-baseline justify-between mb-4">
-              <div className="font-mono text-xs text-hi tracking-widest">/MENU F&B THEMES</div>
-              <div className="font-mono text-[10px] text-muted-foreground">9 TEMPLATES</div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {MENU_FB.map((m) => (
-                <div key={m.t} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface">
-                  <img src={m.img} alt={m.t} loading="lazy" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3 font-mono text-[10px] tracking-widest text-white/90 bg-black/30 backdrop-blur px-2 py-1 rounded">
-                    THEME
-                  </div>
-                  <div className="absolute bottom-3 left-3 right-3 text-white font-semibold">{m.t}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 grid sm:grid-cols-4 gap-3">
-          {["1:1 Feed", "9:16 Story", "16:9 YT", "4:5 Ads"].map((f) => (
-            <div key={f} className="rounded-xl border border-border bg-surface p-5">
-              <div className="font-mono text-xs text-hi">FORMAT</div>
-              <div className="mt-2 text-xl font-semibold">{f}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-/* ============ PRICING ============ */
-function Pricing() {
+function CountdownTimer() {
   const [t, setT] = useState({ d: 6, h: 23, m: 59, s: 55 });
   useEffect(() => {
     const id = setInterval(() => {
@@ -563,247 +207,182 @@ function Pricing() {
     return () => clearInterval(id);
   }, []);
 
-  const features = [
-    "Ribuan gaya visual, satu studio",
-    "10 mode kreatif (Banner / Thumbnail / Ads / Copy / Face Card / Menu F&B)",
-    "4 Affiliate Tools (Logo · Try-On · Review · Storyboard)",
-    "48+ kategori preset + 9 template Menu F&B siap pakai",
-    "Unlimited render — tanpa kuota harian",
-    "Multi-format output (1:1 · 9:16 · 16:9 · 4:5 · A4)",
-    "Update mode & kategori baru — selamanya",
-    "Akses dashboard via email kamu",
-  ];
-
   return (
-    <section id="harga" className="border-b border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/06" label="EARLY ACCESS · BATCH 1" />
-        <div className="mt-4 grid lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-5">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-              Akses penuh,<br />satu kali bayar.<br /><span className="text-hi">Selamanya.</span>
-            </h2>
-            <p className="mt-5 text-muted-foreground">
-              Harga early access cuma dibuka untuk batch pertama. Setelah kuota habis, harga normal
-              kembali ke Rp 700.000.
-            </p>
-
-            <div className="mt-8 grid grid-cols-4 gap-2 max-w-md">
-              {[
-                ["HARI", t.d], ["JAM", t.h], ["MIN", t.m], ["DET", t.s],
-              ].map(([l, v]) => (
-                <div key={l as string} className="rounded-lg bg-background border border-border p-3 text-center">
-                  <div className="font-mono text-2xl font-semibold tabular-nums">
-                    {String(v).padStart(2, "0")}
-                  </div>
-                  <div className="font-mono text-[10px] text-muted-foreground tracking-widest mt-1">{l}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <div className="font-mono text-xs text-muted-foreground mb-2">KUOTA BATCH 1 · 69 / 100 TERISI</div>
-              <div className="h-2 rounded-full bg-background border border-border overflow-hidden">
-                <div className="h-full bg-hi" style={{ width: "69%" }} />
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7">
-            <div className="relative rounded-3xl border border-hi/40 bg-background p-8 glow-lime">
-              <div className="absolute -top-3 right-6 bg-hi text-primary-foreground font-mono text-[10px] tracking-widest px-3 py-1 rounded-full">
-                HEMAT 93%
-              </div>
-              <div className="flex items-baseline gap-3">
-                <span className="text-muted-foreground line-through">Rp 700.000</span>
-                <span className="font-mono text-[10px] text-muted-foreground tracking-widest">HARGA NORMAL</span>
-              </div>
-              <div className="mt-2 flex items-baseline gap-3">
-                <span className="text-6xl font-semibold tracking-tight">Rp 49.000</span>
-                <span className="text-sm text-muted-foreground">sekali bayar · selamanya</span>
-              </div>
-              <div className="mt-1 font-mono text-[10px] tracking-widest text-hi">
-                TANPA LANGGANAN · TANPA BIAYA TERSEMBUNYI
-              </div>
-
-              <ul className="mt-8 space-y-3">
-                {features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm">
-                    <span className="text-hi mt-0.5">✓</span>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={CHECKOUT_URL}
-                className="mt-8 w-full inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold hover:opacity-90 transition"
-              >
-                Klaim Early Access Sekarang →
-              </a>
-              <div className="mt-4 text-center font-mono text-[10px] tracking-widest text-muted-foreground">
-                TRANSFER · QRIS · OVO · GOPAY · DANA
-              </div>
-            </div>
-          </div>
+    <div className="cd-wrap">
+      <div className="cd-timers">
+        <div className="cd-unit">
+          <div className="cd-circle">{String(t.h).padStart(2, "0")}</div>
+          <span className="cd-lbl">JAM</span>
+        </div>
+        <div className="cd-unit">
+          <div className="cd-circle">{String(t.m).padStart(2, "0")}</div>
+          <span className="cd-lbl">MENIT</span>
+        </div>
+        <div className="cd-unit">
+          <div className="cd-circle">{String(t.s).padStart(2, "0")}</div>
+          <span className="cd-lbl">DETIK</span>
         </div>
       </div>
-    </section>
+      <p style={{fontStyle: 'italic', fontSize: '0.81rem', color: '#777'}}>Ingat, penawaran Early Access ini hanya berlaku sebelum waktu habis!</p>
+    </div>
   );
 }
 
-/* ============ FAQ ============ */
-function FAQ() {
-  const qs = [
-    ["Apa bedanya Super AI Feed 1.2 dengan Canva atau Photoshop?", "Canva dan Photoshop adalah editor — kamu harus tahu desain dulu. Super AI Feed 1.2 adalah studio otomatis — kamu cukup isi brief, hasilnya langsung jadi visual siap upload tanpa edit manual."],
-    ["Apakah saya butuh skill desain untuk pakai ini?", "Tidak. Cukup pilih kategori industri, isi nama produk, pilih warna brand — selebihnya engine yang kerjain."],
-    ["Format dan rasio apa saja yang bisa dihasilkan?", "Feed 1:1, story/reels 9:16, thumbnail YouTube 16:9, dan typography ads 4:5."],
-    ["Apakah ada biaya bulanan?", "Tidak. Sekali bayar Rp 49.000 (selama early access)."],
-    ["Apakah saya dapat update mode baru di masa depan?", "Iya. Semua mode dan kategori baru akan otomatis tersedia tanpa biaya tambahan."],
-    ["Bagaimana cara akses setelah bayar?", "Setelah pembayaran terkonfirmasi, kamu akan menerima email berisi akses masuk ke studio."],
-    ["Berapa banyak design yang bisa saya hasilkan?", "Unlimited. Tidak ada quota, tidak ada throttle per hari."],
-    ["Apakah hasilnya bisa untuk pemakaian komersial?", "Iya. Bebas dipakai untuk iklan berbayar, konten brand, marketplace, cetak."],
-    ["Saya pemula total, beneran bisa pakai?", "Bisa. Pilih kategori, isi nama, klik salin design. Selesai dalam 30 detik."],
-    ["Apakah hasilnya bisa di-custom sesuai brand kita?", "Sangat bisa. Kamu input warna brand, gaya komunikasi, dan persona produk — engine otomatis menyesuaikan."],
-  ];
-  const [open, setOpen] = useState<number | null>(0);
+function LandingPage() {
   return (
-    <section id="faq" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-20 lg:py-28">
-        <SectionLabel index="/07" label="FAQ" />
-        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight max-w-3xl">
-          Pertanyaan yang sering muncul.
-        </h2>
-        <div className="mt-12 max-w-3xl divide-y divide-border border-t border-b border-border">
-          {qs.map(([q, a], i) => (
-            <button
-              key={i}
-              onClick={() => setOpen(open === i ? null : i)}
-              className="w-full text-left py-5 group"
-            >
-              <div className="flex justify-between items-start gap-6">
-                <div className="flex gap-4">
-                  <span className="font-mono text-xs text-hi mt-1">Q{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-lg font-medium">{q}</span>
-                </div>
-                <span className={`text-hi text-xl transition-transform ${open === i ? "rotate-45" : ""}`}>+</span>
-              </div>
-              {open === i && (
-                <p className="mt-4 ml-12 text-muted-foreground leading-relaxed">{a}</p>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============ CLOSING ============ */
-function Closing() {
-  return (
-    <section className="border-b border-border relative overflow-hidden">
-      <div className="absolute inset-0 grid-noise opacity-[0.15] pointer-events-none" />
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-hi/10 blur-3xl pointer-events-none" />
-      <div className="relative mx-auto max-w-5xl px-5 lg:px-8 py-24 lg:py-32 text-center">
-        <div className="font-mono text-xs tracking-[0.2em] text-hi">WAKTUNYA PINDAH.</div>
-        <h2 className="mt-6 text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.02]">
-          Berhenti nungguin designer.<br />
-          Mulai <span className="text-hi">render hari ini.</span>
-        </h2>
-        <p className="mt-6 max-w-2xl mx-auto text-muted-foreground">
-          Visual brand kamu udah ketinggalan satu minggu. Super AI Feed 1.2 bisa mengembalikannya
-          dalam satu jam pertama akses. Ambil early access sebelum kuota batch 1 habis.
-        </p>
-        <a
-          href={CHECKOUT_URL}
-          className="mt-10 inline-flex items-center gap-2 rounded-xl bg-hi text-primary-foreground px-8 py-5 text-lg font-semibold glow-lime hover:translate-y-[-1px] transition"
-        >
-          Bayar Rp 49.000 — Akses Selamanya
-        </a>
-        <div className="mt-4 font-mono text-[10px] tracking-widest text-muted-foreground">
-          AKSES INSTAN SETELAH PEMBAYARAN · SELAMANYA
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============ FOOTER ============ */
-function Footer() {
-  return (
-    <footer className="bg-background">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-16 grid md:grid-cols-3 gap-10">
-        <div>
-          <div className="flex items-baseline gap-3">
-            <span className="text-hi font-mono">◆</span>
-            <span className="font-semibold">Super AI Feed 1.2</span>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
-            Studio visual otomatis untuk banner, thumbnail, ads, dan typography. Dibangun di Indonesia
-            untuk creator dan brand yang lelah nunggu designer.
+    <div style={{fontFamily: "'Segoe UI', Arial, sans-serif", color: "#222", background: "#fff", minHeight: "100vh"}}>
+      <style dangerouslySetInnerHTML={{ __html: STYLE }} />
+      <div className="wrap">
+        
+        {/* SECTION 1: HEADLINE */}
+        <div className="hl-wrap">
+          <div className="hl-box">🤔 Butuh Desain Konten Profesional tapi Gaptek dan Gak Punya Waktu?</div>
+          <h1 style={{fontSize: "2.2rem", lineHeight: 1.3, marginBottom: "15px", marginTop: "15px", fontWeight: "bold"}}>
+            Tanpa Designer, Buat Konten Ala Desain Grafis Profesional dalam Hitungan Detik.
+          </h1>
+          <p style={{fontSize: "1.15rem", color: "#555", lineHeight: 1.6}}>
+            Generate desain iklan profesional untuk feed, ads, dan branding hanya dalam beberapa detik. Tanpa belajar desain, tanpa langganan tool mahal, tanpa nunggu revisi tiga hari.
           </p>
         </div>
-        <div>
-          <div className="font-mono text-xs tracking-widest text-muted-foreground">STUDIO</div>
-          <ul className="mt-4 space-y-2 text-sm">
-            {NAV.map((n) => (
-              <li key={n.href}><a href={n.href} className="hover:text-hi transition">{n.label}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="font-mono text-xs tracking-widest text-muted-foreground">SOCIAL</div>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li><a href="#" className="hover:text-hi transition">@superaifeed</a></li>
-            <li><a href="#" className="hover:text-hi transition">SuperAIFeed</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8 py-6 font-mono text-[10px] tracking-widest text-muted-foreground flex flex-col sm:flex-row justify-between gap-2">
-          <span>© 2026 SUPER AI FEED 1.2 · ALL RIGHTS RESERVED</span>
-          <span>V2.1 · EARLY ACCESS BUILD</span>
-        </div>
-      </div>
-    </footer>
-  );
-}
 
-/* ============ SALES PING ============ */
-function SalesPing() {
-  const [visible, setVisible] = useState(false);
-  const [idx, setIdx] = useState(0);
-  const pings = [
-    "tasy*********@gmail.com",
-    "rendr*******@gmail.com",
-    "auli********@gmail.com",
-    "bagas*******@gmail.com",
-    "dinda*******@gmail.com",
-  ];
-  useEffect(() => {
-    const cycle = () => {
-      setVisible(true);
-      setTimeout(() => setVisible(false), 5500);
-    };
-    const t1 = setTimeout(cycle, 3500);
-    const id = setInterval(() => {
-      setIdx((p) => (p + 1) % pings.length);
-      cycle();
-    }, 11000);
-    return () => { clearTimeout(t1); clearInterval(id); };
-  }, []);
-  return (
-    <div
-      className={`fixed bottom-5 left-5 z-50 transition-all duration-500 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      }`}
-    >
-      <div className="rounded-xl border border-border bg-surface/95 backdrop-blur p-3 pr-4 flex items-center gap-3 shadow-2xl max-w-xs">
-        <div className="w-9 h-9 rounded-lg bg-hi/15 border border-hi/30 flex items-center justify-center text-hi">✓</div>
-        <div>
-          <div className="text-sm font-medium">{pings[idx]}</div>
-          <div className="font-mono text-[10px] text-muted-foreground tracking-widest">MEMBELI · VIA @Irfansnagjuara</div>
+        <div style={{margin: "40px 0"}}>
+          <MockupCard />
+        </div>
+
+        {/* SECTION 2: PROBLEM SETUP / AGITASI */}
+        <div style={{margin: "40px 0"}}>
+          <p style={{marginBottom: "15px", fontSize: "1.1rem"}}>Wajar aja kalau kamu <strong>pusing</strong> karena waktu produksi 1 banner bisa sampai 4–24 jam.</p>
+          <p style={{marginBottom: "15px", fontSize: "1.1rem"}}>Wajar aja kalau kamu <strong>boncos</strong> bayar desainer Rp 50–500 ribu untuk setiap revisi desain banner.</p>
+          <p style={{marginBottom: "15px", fontSize: "1.1rem"}}>Wajar aja kalau kamu <strong>frustasi</strong> karena style visual nggak konsisten dan tergantung mood desainernya.</p>
+          <p style={{marginBottom: "15px", fontSize: "1.1rem", background: "#dc2626", color: "#ffffff", padding: "18px 20px", borderRadius: "10px", fontWeight: 600, boxShadow: "0 4px 12px rgba(220, 38, 38, 0.3)"}}>
+            Wajar aja kalau kamu <strong style={{color: "#ffffff", textDecoration: "underline"}}>sering telat posting</strong> karena <em>harus ngantri revisi berhari-hari</em>.
+          </p>
+
+          <div className="premium-reveal-box">
+             <div className="icon-top">💡</div>
+             <p style={{marginBottom: "15px", fontSize: "1.15rem", color: "#1f2937"}}>
+                Masalahnya bukan kamu <em>gak bisa</em> desain, masalahnya kamu <strong style={{color: "var(--red-dark)", fontWeight: 800, fontSize: "1.2rem"}}>belum punya tools yang BENAR.</strong> 
+                Super AI Feed 1.2 buat kamu bisa produksi visual komersial dalam hitungan detik <strong style={{color: "#E53935", textDecoration: "underline", textUnderlineOffset: 4}}>tanpa biaya bulanan.</strong>
+             </p>
+          </div>
+        </div>
+
+        {/* SECTION 3: PRODUCT BRIDGING & FITUR */}
+        <h2 style={{textAlign: "center", marginBottom: "20px", fontSize: "1.5rem", fontWeight: "bold"}}>
+          Bukan sekedar template generator — studio desain otomatis yang serius.
+        </h2>
+
+        <div style={{background: "#fff", border: "2px dashed var(--red)", padding: "20px", borderRadius: "12px", marginBottom: "40px"}}>
+          <h3 style={{color: "var(--red)", textAlign: "center", marginBottom: "15px", fontWeight: "bold", fontSize: "1.2rem"}}>Yang Akan Kamu Dapatkan:</h3>
+          <ul className="benefit-list">
+            <li><strong>10 Mode Kreatif:</strong> Banner, Thumbnail, Typography, Ads, Copy, Face Card, Menu F&B, dll.</li>
+            <li><strong>48+ Kategori Preset:</strong> Tersedia lengkap untuk F&B, fashion, beauty, otomotif, edukasi, finance.</li>
+            <li><strong>Multi-Format Output:</strong> Render untuk Feed 1:1, Story 9:16, YouTube 16:9, Ads 4:5.</li>
+            <li><strong>Unlimited Render:</strong> Sebanyak apapun visual yang kamu butuh, tanpa batasan kredit bulanan.</li>
+            <li><strong>Brand-Locked:</strong> Pertahankan gaya yang konsisten hanya dengan sekali isi form.</li>
+            <li><strong>Sekali Bayar:</strong> Tanpa langganan bulanan. Update seumur hidup gratis otomatis di akun kamu.</li>
+          </ul>
+        </div>
+
+        <a href={CHECKOUT_URL} className="cta-btn">👉 Ya, Saya Mau Akses Super AI Feed 1.2</a>
+
+        {/* SECTION 4: SHOWCASE & TESTIMONI */}
+        <div style={{marginTop: "60px", marginBottom: "40px"}}>
+          <h2 style={{textAlign: "center", marginBottom: "20px", fontSize: "1.6rem", color: "var(--red-dark)", fontWeight: "bold"}}>Hasil Desain Keren dari Super AI Feed 1.2</h2>
+          <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "30px"}}>
+             <img src="https://autofeeds.id/landing/modes/banner-preview.jpg" style={{width: "100%", borderRadius: "12px", boxShadow: "0 8px 24px rgba(0,0,0,0.15)"}} alt="Banner" />
+             <img src="https://autofeeds.id/landing/modes/thumbnail-preview.jpg" style={{width: "100%", borderRadius: "12px", boxShadow: "0 8px 24px rgba(0,0,0,0.15)"}} alt="Thumbnail" />
+          </div>
+
+          <div style={{position: "relative", maxWidth: "600px", margin: "0 auto 30px auto", padding: "24px", borderRadius: "12px", boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: "2px solid #e5e7eb", background: "#f9fafb"}}>
+             <h3 style={{textAlign: "center", fontSize: "1.3rem", fontWeight: 800, color: "#111827", marginBottom: "15px"}}>Kreator yang Sudah Pakai & Suka Hasilnya 🔥</h3>
+             <div style={{marginBottom: "15px", fontSize: "1.05rem", lineHeight: 1.6}}>
+               "Biasanya brief ke designer 3 hari kelar, sekarang sore racik design — malamnya udah jalanin Meta Ads. Game changer buat tim kecil."
+               <br/><br/><strong style={{color: "var(--red)"}}>- Rendra A. (OWNER BRAND SKINCARE)</strong>
+             </div>
+             <hr style={{margin: "15px 0", borderColor: "#ddd"}}/>
+             <div style={{fontSize: "1.05rem", lineHeight: 1.6, marginTop: "15px"}}>
+               "Buat 30 variant creative test pagi, malamnya udah ada winning ads. ROAS naik 1.8x dalam dua minggu. Tools paling worth it yang pernah gue beli."
+               <br/><br/><strong style={{color: "var(--red)"}}>- Bagas D. (PERFORMANCE MARKETER)</strong>
+             </div>
+          </div>
+        </div>
+
+        {/* SECTION 5: PRICING */}
+        <h2 style={{textAlign: "center", fontSize: "1.5rem", color: "#d97706", marginBottom: "30px", fontWeight: 800}}>KABAR BAIK! Akses Khusus Early Access Hari Ini...</h2>
+
+        <div className="stack-box">
+          <ul className="vstack" style={{background: "#fff"}}>
+             <li>
+               <span className="name">✅ Akses Lifetime Super AI Feed 1.2</span>
+               <span className="price" style={{color: "var(--red)", fontWeight: "bold"}}>Rp 700.000</span>
+             </li>
+             <li>
+               <span className="name">✅ Bebas Render Desain Unlimited</span>
+               <span className="price" style={{color: "var(--red)", fontWeight: "bold"}}>Rp 250.000 / bln</span>
+             </li>
+             <li>
+               <span className="name">✅ Akses 10 Mode Kreatif + 48 Kategori</span>
+               <span className="price" style={{color: "var(--red)", fontWeight: "bold"}}>Rp 150.000</span>
+             </li>
+             <li>
+               <span className="name">✅ Free Update Selamanya</span>
+               <span className="price" style={{color: "var(--red)", fontWeight: "bold"}}>Tak Ternilai</span>
+             </li>
+             <li className="total" style={{background: "#1f2937"}}>
+               <span className="name" style={{color: "#ffffff", fontWeight: "bold"}}>🏆 TOTAL VALUE</span>
+               <span className="price" style={{color: "#fbbf24", fontWeight: "bold", fontSize: "1.1rem"}}>Rp 1.100.000+</span>
+             </li>
+          </ul>
+
+          <div className="price-box">
+             <p className="lbl">Total Value yang Kamu Dapatkan</p>
+             <p style={{fontSize: '1rem', color: '#666', marginBottom: '14px'}}>Senilai <strong>Rp 1.100.000+</strong></p>
+             <p style={{fontSize: '1rem', fontWeight: 700, marginBottom: '8px'}}>Khusus Batch 1 Early Access Hari Ini:</p>
+             <del style={{fontSize: '1.15rem', color: '#bbb'}}>Rp 700.000</del>
+             <div className="actual">Rp 49.000</div>
+             <p style={{color: 'var(--red)', fontWeight: 800, fontSize: '0.93rem', marginTop: '8px'}}>🔥 Diskon Early Access BERLAKU HARI INI!</p>
+          </div>
+
+          <CountdownTimer />
+
+          <a href={CHECKOUT_URL} className="cta-btn" style={{marginTop: "20px"}}>👉 Ya, Saya Mau Ambil Early Access Rp 49.000</a>
+        </div>
+
+        {/* SECTION 6: HANDLING OBJECTION */}
+        <div style={{background: "#f9fafb", padding: "40px 20px", textAlign: "center", borderRadius: "12px", marginTop: "50px", border: "1px solid #e5e7eb"}}>
+          <h3 style={{fontSize: "1.5rem", marginBottom: "20px", fontWeight: "bold"}}>Bayangkan...</h3>
+          <p style={{fontSize: "1.1rem", marginBottom: "15px"}}>Kita selalu percaya bahwa <strong style={{color: "var(--red)"}}>waktu adalah uang</strong>, betul? Berapa banyak klien dan omset yang melayang karena kamu lambat produksi konten promosi?</p>
+          <p style={{fontSize: "1.1rem", marginBottom: "15px"}}>Dengan Super AI Feed 1.2, kamu bisa hemat budget bayar desainer, dan bisa test lebih banyak winning ads setiap harinya.</p>
+          <p style={{fontSize: "1.15rem", marginBottom: "25px"}}>Investasi sebesar <strong>Rp 49.000</strong> akan sangat <u style={{fontWeight: "bold"}}>menguntungkan</u> dan segera balik modal hanya dengan 1 desain winning ads.</p>
+          <p style={{fontSize: "1.15rem", fontWeight: 700, marginBottom: "20px", color: "#dc2626"}}>Jangan biarkan harga normal Rp700.000 kembali setelah kuota Batch 1 habis.</p>
+          
+          <a href={CHECKOUT_URL} className="cta-btn" style={{marginTop: "20px"}}>👉 Amankan Harga Rp 49.000 Sekarang</a>
+        </div>
+
+        {/* SECTION 7: FAQ */}
+        <div className="faq-container">
+          <h2 className="faq-title">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+          <div className="faq-item">
+            <h4>🤔 Apa bedanya Super AI Feed 1.2 dengan Canva?</h4>
+            <p>Canva adalah editor—kamu harus tahu dasar desain. Super AI Feed adalah studio otomatis—kamu cukup isi form (brief), hasilnya langsung jadi tanpa perlu edit manual sama sekali.</p>
+          </div>
+          <div className="faq-item">
+            <h4>🤔 Apakah ada biaya bulanan?</h4>
+            <p>Tidak! Selama penawaran Early Access ini, kamu cukup bayar sekali Rp 49.000 untuk akses seumur hidup tanpa biaya tersembunyi.</p>
+          </div>
+          <div className="faq-item">
+            <h4>🤔 Format apa saja yang bisa dihasilkan?</h4>
+            <p>Berbagai format siap pakai: Feed 1:1, Story/Reels 9:16, Thumbnail 16:9, dan Ads 4:5.</p>
+          </div>
+          <div className="faq-item">
+            <h4>🤔 Apakah hasilnya bisa di-custom sesuai brand kita?</h4>
+            <p>Sangat bisa. Kamu bisa kunci warna (brand-locked), gaya komunikasi, dan persona produk, jadi seluruh desain yang di-generate akan tetap konsisten dengan identitas brand kamu.</p>
+          </div>
+        </div>
+
+        <div style={{textAlign: "center", marginTop: "40px", marginBottom: "60px"}}>
+          <a href={CHECKOUT_URL} className="cta-btn">👉 Beli Super AI Feed 1.2 Sekarang</a>
         </div>
       </div>
     </div>
