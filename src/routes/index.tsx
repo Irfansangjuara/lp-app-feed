@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 // Framer motion added above
 import {
   Bot,
@@ -147,51 +148,51 @@ function Hero() {
       <div className="absolute -top-32 -right-32 w-[40rem] h-[40rem] rounded-full bg-hi/10 blur-3xl pointer-events-none" />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-10 items-center">
         {/* Top Text (Headline) */}
-        <div className="lg:col-span-7 lg:col-start-1 lg:row-start-1 order-1 flex flex-col items-start">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
-            <span className="w-1.5 h-1.5 rounded-full bg-hi" />
+        <motion.div className="lg:col-span-7 lg:col-start-1 lg:row-start-1 order-1 flex flex-col items-start" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" />
             Early Access · Kuota Terbatas
-          </div>
-          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
+          </motion.div>
+          <motion.h1 variants={fadeUp} className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
             Tanpa Designer,
             <br />
             Buat Konten Ala <span className="text-hi">Desain Grafis</span> Profesional
             <br className="hidden sm:block" />
             dalam Hitungan Detik.
-          </h1>
-        </div>
+          </motion.h1>
+        </motion.div>
 
         {/* Mockup Card */}
-        <div className="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 order-2 w-full max-w-md mx-auto lg:max-w-none px-4 sm:px-6 lg:px-0">
+        <motion.div className="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 order-2 w-full max-w-md mx-auto lg:max-w-none px-4 sm:px-6 lg:px-0" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}>
           <MockupCard />
-        </div>
+        </motion.div>
 
         {/* Bottom Text (Paragraph & CTA) */}
-        <div className="lg:col-span-7 lg:col-start-1 lg:row-start-2 order-3 flex flex-col items-start">
-          <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
+        <motion.div className="lg:col-span-7 lg:col-start-1 lg:row-start-2 order-3 flex flex-col items-start" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+          <motion.p variants={fadeUp} className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Generate desain iklan profesional untuk feed, ads, dan branding hanya dalam beberapa
             detik. Tanpa belajar desain, tanpa langganan tool mahal, tanpa nunggu revisi tiga hari.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <a
               href={CHECKOUT_URL}
               className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition w-full sm:w-auto"
             >
               Ambil Early Access — Rp 49.000
             </a>
-            <a
+            <motion.a
               href="#showcase"
               className="inline-flex justify-center items-center gap-2 rounded-xl border border-border bg-surface px-6 py-4 text-base font-medium hover:bg-surface-2 transition w-full sm:w-auto"
             >
               Lihat Hasil Generate →
-            </a>
-          </div>
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
+            </motion.a>
+          </motion.div>
+          <motion.ul variants={fadeUp} className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
             <li>✓ Sekali bayar — seumur hidup</li>
             <li>✓ 10 mode kreatif</li>
             <li>✓ 48+ kategori siap pakai</li>
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
       </div>
     </section>
   );
@@ -271,7 +272,11 @@ function MockupCard() {
       <div className="absolute inset-0 grid-noise opacity-[0.03] pointer-events-none rounded-2xl" />
 
       {/* Floating Badges */}
-      <div className="absolute -top-4 -right-2 sm:-top-6 sm:-right-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]">
+      <motion.div 
+        animate={{ y: [0, -8, 0] }} 
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        className="absolute -top-4 -right-2 sm:-top-6 sm:-right-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]"
+      >
         <div className="font-mono text-[8px] sm:text-[9px] text-muted-foreground tracking-widest mb-1">
           FORMAT
         </div>
@@ -282,9 +287,13 @@ function MockupCard() {
         <div className="font-mono text-[7px] sm:text-[9px] text-muted-foreground mt-0.5 sm:mt-1">
           IG · TT · YT · Story
         </div>
-      </div>
+      </motion.div>
 
-      <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]">
+      <motion.div 
+        animate={{ y: [0, 8, 0] }} 
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+        className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]"
+      >
         <div className="font-mono text-[8px] sm:text-[9px] text-muted-foreground tracking-widest mb-1">
           RATA-RATA
         </div>
@@ -292,7 +301,7 @@ function MockupCard() {
         <div className="font-mono text-[8px] sm:text-[10px] text-muted-foreground">
           brief → visual
         </div>
-      </div>
+      </motion.div>
 
       {/* Top Bar */}
       <div className="flex items-center px-4 py-3 border-b border-border bg-[#1a1a1a] rounded-t-2xl relative z-10">
@@ -328,11 +337,16 @@ function MockupCard() {
 
         {/* Content Area */}
         <div className="flex-1 relative overflow-hidden bg-surface/40 rounded-br-2xl">
-          {phase === "form" ? (
-            <div
-              key={`form-${scenarioIndex}`}
-              className="absolute inset-0 p-6 flex flex-col justify-between"
-            >
+          <AnimatePresence mode="wait">
+            {phase === "form" ? (
+              <motion.div 
+                key={`form-${scenarioIndex}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 p-6 flex flex-col justify-between"
+              >
               <div>
                 <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-4 flex items-center gap-2">
                   <span className="text-border">/</span> BANNER GENERATOR
@@ -369,12 +383,25 @@ function MockupCard() {
               </div>
 
               <div className="flex justify-end mt-4 relative">
-                <button className="rounded-xl bg-gradient-to-br from-hi to-yellow-600 text-primary-foreground px-6 py-3 text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+                <motion.button 
+                  animate={{ boxShadow: ["0 0 0px 0px rgba(251,191,36,0)", "0 0 25px 2px rgba(251,191,36,0.6)", "0 0 0px 0px rgba(251,191,36,0)"] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                  className="rounded-xl bg-gradient-to-br from-hi to-yellow-600 text-primary-foreground px-6 py-3 text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform"
+                >
                   <Bot className="w-4 h-4" /> Generate
-                </button>
+                </motion.button>
 
                 {/* Animated Cursor */}
-                <div className="absolute right-0 top-0 z-50 pointer-events-none drop-shadow-2xl">
+                {/* Animated Cursor */}
+                <motion.div
+                  animate={{ 
+                    x: [100, -10],
+                    y: [120, 15],
+                    scale: [1, 0.9]
+                  }}
+                  transition={{ duration: 1.5, ease: "easeOut", delay: 1 }}
+                  className="absolute right-0 top-0 z-50 pointer-events-none drop-shadow-2xl"
+                >
                   <svg
                     width="24"
                     height="36"
@@ -389,47 +416,72 @@ function MockupCard() {
                       strokeWidth="2"
                     />
                   </svg>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           ) : (
-            <div
-              key={`result-${scenarioIndex}`}
-              className="absolute inset-0 flex items-center justify-center p-4 bg-[#111]"
-            >
-              {/* Result Pill */}
-              <div className="absolute top-6 z-20 rounded-full border border-hi/30 bg-background/80 backdrop-blur px-6 py-2 flex items-center gap-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
-                <Bot className="w-4 h-4 text-hi" />
-                <span className="font-mono text-xs font-bold tracking-widest text-hi">
-                  {scenario.brand.toUpperCase()} · READY
-                </span>
-              </div>
+              <motion.div 
+                key={`result-${scenarioIndex}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 flex items-center justify-center p-4 bg-[#111]"
+              >
+                {/* Result Pill */}
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="absolute top-6 z-20 rounded-full border border-hi/30 bg-background/80 backdrop-blur px-6 py-2 flex items-center gap-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]"
+                >
+                  <Bot className="w-4 h-4 text-hi" />
+                  <span className="font-mono text-xs font-bold tracking-widest text-hi">
+                    {scenario.brand.toUpperCase()} · READY
+                  </span>
+                </motion.div>
 
               {/* Scattered Background Images */}
-              <img
-                src={scenario.images[1]}
-                className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10"
-              />
-              <img
-                src={scenario.images[2]}
-                className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10"
-              />
-              <img
-                src={scenario.images[3]}
-                className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10"
-              />
-              <img
-                src={scenario.images[4]}
-                className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10"
-              />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: -20, x: -100, y: -50 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: -15, x: -80, y: -60 }}
+                  transition={{ delay: 0.1, type: "spring" }}
+                  src={scenario.images[1]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: 20, x: 100, y: -40 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: 12, x: 80, y: -30 }}
+                  transition={{ delay: 0.2, type: "spring" }}
+                  src={scenario.images[2]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: -30, x: -80, y: 80 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: -8, x: -60, y: 70 }}
+                  transition={{ delay: 0.3, type: "spring" }}
+                  src={scenario.images[3]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, rotate: 30, x: 80, y: 80 }}
+                  animate={{ scale: 1, opacity: 0.5, rotate: 18, x: 60, y: 60 }}
+                  transition={{ delay: 0.4, type: "spring" }}
+                  src={scenario.images[4]} 
+                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                />
 
-              {/* Center Main Image */}
-              <img
-                src={scenario.images[0]}
-                className="relative z-10 w-64 h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover"
-              />
-            </div>
-          )}
+                {/* Center Main Image */}
+                <motion.img 
+                  initial={{ scale: 0.5, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, type: "spring", bounce: 0.4 }}
+                  src={scenario.images[0]} 
+                  className="relative z-10 w-64 h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover" 
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
@@ -610,29 +662,45 @@ function CarouselFeeds() {
           {/* Right: 3D Stacked Cards Animation */}
           <div className="relative h-[400px] sm:h-[500px] w-full flex items-center justify-center perspective-[1000px]">
             <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px]">
-              {images.map((src, i) => {
-                const position = (i - currentIndex + images.length) % images.length;
-
-                const zIndex = 30 - position * 10;
-                const scale = 1 - position * 0.05;
-                const x = position * 25;
-                const y = position * 15;
-                const rotate = position * 4;
-
-                return (
-                  <div
-                    key={src}
-                    className="absolute inset-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-surface cursor-pointer"
-                    onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
-                    style={{ transformOrigin: "top left" }}
-                  >
-                    <img src={src} alt="Carousel Slide" className="w-full h-full object-cover" />
-                    <div className="absolute top-4 right-4 bg-black/40 backdrop-blur text-white text-xs font-mono px-2 py-1 rounded-full border border-white/10">
-                      {position === 0 ? "1/3" : position === 1 ? "2/3" : "3/3"}
-                    </div>
-                  </div>
-                );
-              })}
+              <AnimatePresence initial={false}>
+                {images.map((src, i) => {
+                  const position = (i - currentIndex + images.length) % images.length;
+                  
+                  const zIndex = 30 - position * 10;
+                  const scale = 1 - position * 0.05;
+                  const x = position * 25; 
+                  const y = position * 15; 
+                  const rotate = position * 4; 
+                  
+                  return (
+                    <motion.div
+                      key={src}
+                      className="absolute inset-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-surface cursor-pointer"
+                      onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
+                      initial={{ opacity: 0, x: -50, scale: 0.9 }}
+                      animate={{
+                        zIndex,
+                        scale,
+                        x,
+                        y,
+                        rotate,
+                        opacity: 1
+                      }}
+                      exit={{ opacity: 0, x: -100, scale: 1.1, rotate: -5 }}
+                      transition={{
+                        duration: 0.6,
+                        ease: [0.32, 0.72, 0, 1]
+                      }}
+                      style={{ transformOrigin: 'top left' }}
+                    >
+                      <img src={src} alt="Carousel Slide" className="w-full h-full object-cover" />
+                      <div className="absolute top-4 right-4 bg-black/40 backdrop-blur text-white text-xs font-mono px-2 py-1 rounded-full border border-white/10">
+                        {position === 0 ? "1/3" : position === 1 ? "2/3" : "3/3"}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
 
             <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center gap-3">
