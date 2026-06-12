@@ -459,7 +459,7 @@ function HeroShowcase() {
         <div className="flex w-max ticker hover:[animation-play-state:paused]" style={{ animationDuration: '40s' }}>
           {[...row1, ...row1].map((src, i) => (
             <div key={i} className="px-2">
-              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase" loading="lazy" />
+              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase"  />
             </div>
           ))}
         </div>
@@ -468,7 +468,7 @@ function HeroShowcase() {
         <div className="flex w-max ticker-reverse hover:[animation-play-state:paused]">
           {[...row2, ...row2].map((src, i) => (
             <div key={i} className="px-2">
-              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase" loading="lazy" />
+              <img src={src} className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover border border-white/5 shadow-lg" alt="Showcase"  />
             </div>
           ))}
         </div>
@@ -1334,7 +1334,7 @@ function ShowGrid({
                 <img
                   src={src}
                   alt={`${label} ${i + 1}`}
-                  loading="lazy"
+                  
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-2 right-2 font-mono text-[9px] text-white/80 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded border border-white/10">
@@ -1366,7 +1366,7 @@ function Showcase() {
         <motion.div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           {PREVIEW_MODES.map((m) => (
             <motion.div key={m.label} variants={fadeUp} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface group">
-              <img src={m.img} alt={m.label} loading="lazy" className="w-full h-full object-cover" />
+              <img src={m.img} alt={m.label}  className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-3 right-3">
                 <div className="font-mono text-[10px] tracking-widest text-hi">MODE</div>
@@ -1391,7 +1391,7 @@ function Showcase() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
               {FACE_CARDS.map((f) => (
                 <div key={f.t} className="relative aspect-[3/4] rounded-xl border border-border overflow-hidden bg-surface">
-                  <img src={f.img} alt={f.t} loading="lazy" className="w-full h-full object-cover" />
+                  <img src={f.img} alt={f.t}  className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3 text-white text-sm font-semibold">{f.t}</div>
                 </div>
@@ -1408,7 +1408,7 @@ function Showcase() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {MENU_FB.map((m) => (
                 <div key={m.t} className="relative aspect-[4/5] rounded-xl border border-border overflow-hidden bg-surface">
-                  <img src={m.img} alt={m.t} loading="lazy" className="w-full h-full object-cover" />
+                  <img src={m.img} alt={m.t}  className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                   <div className="absolute top-3 left-3 font-mono text-[10px] tracking-widest text-white/90 bg-black/30 backdrop-blur px-2 py-1 rounded">
                     THEME
@@ -1664,35 +1664,35 @@ function Footer() {
           <img 
             src="https://res.cloudinary.com/dceu5m3fm/image/upload/f_auto,q_auto:best,dpr_auto,c_limit,w_1200/v1774617869/poster_copilot_marketing_dynamic_v2_ylzscn.png" 
             alt="Sponsor 1" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775534181/Profil_13_qg0d40.png" 
             alt="Sponsor 2" 
-            loading="lazy" 
+             
             decoding="async" 
             className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-2xl bg-white p-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775800852/IG_1_bfuux9.png" 
             alt="Sponsor 3" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109356/profile-cv-irfan_nyyt5o.webp" 
             alt="Sponsor 4" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109782/Badge_nfryio.png" 
             alt="Sponsor 5" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
@@ -1703,28 +1703,28 @@ function Footer() {
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-search_vaimwh.jpg" 
             alt="Certificate 1" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-analytics_aqlxmj.jpg" 
             alt="Certificate 2" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-video_wucpvd.jpg" 
             alt="Certificate 3" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
           <img 
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109355/cert-google-gemini_aszwll.png" 
             alt="Certificate 4" 
-            loading="lazy" 
+             
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
