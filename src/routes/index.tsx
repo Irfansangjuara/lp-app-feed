@@ -1533,7 +1533,7 @@ function Pricing() {
                 <span className="font-mono text-[10px] text-muted-foreground tracking-widest">HARGA NORMAL</span>
               </div>
               <div className="mt-2 flex items-baseline gap-3">
-                <span className="text-6xl font-semibold tracking-tight">Rp 49.000</span>
+                <span className="text-4xl md:text-6xl font-semibold tracking-tight whitespace-nowrap">Rp 49.000</span>
                 <span className="text-sm text-muted-foreground">sekali bayar · selamanya</span>
               </div>
               <div className="mt-1 font-mono text-[10px] tracking-widest text-hi">
@@ -1555,8 +1555,8 @@ function Pricing() {
               >
                 Klaim Early Access Sekarang →
               </a>
-              <div className="mt-4 text-center text-sm md:text-base font-bold text-hi">
-                Harga Sewaktu-waktu Dapat Berubah, Tanpa Ada Pemberitahuan. Amankan Segera Promo Hari ini!
+              <div className="mt-4 text-center text-[11px] sm:text-xs md:text-base font-bold text-hi max-w-[280px] md:max-w-none mx-auto leading-tight md:leading-normal">
+                Harga Dapat Berubah Sewaktu-Waktu Tanpa Pemberitahuan. Amankan Promo Hari Ini Sebelum Berakhir!
               </div>
             </div>
           </motion.div>
