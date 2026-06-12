@@ -1025,38 +1025,38 @@ function SimpleWorkflow() {
   const steps = [
     {
       num: "01",
-      icon: <PenTool className="w-8 h-8 text-red-500" />,
+      icon: <PenTool className="w-8 h-8 text-black" />,
       title: "Isi brief 30 detik",
       desc: "Pilih kategori industri, isi nama produk, headline, dan warna brand. Tidak ada form panjang yang bikin males."
     },
     {
       num: "02",
-      icon: <Cpu className="w-8 h-8 text-red-500" />,
+      icon: <Cpu className="w-8 h-8 text-black" />,
       title: "Engine racik visualnya",
       desc: "Super AI Feed otomatis menyusun komposisi, lighting, typography, dan color grading — semua dipetakan presisi."
     },
     {
       num: "03",
-      icon: <Wand2 className="w-8 h-8 text-red-500" />,
+      icon: <Wand2 className="w-8 h-8 text-black" />,
       title: "Design jadi, tinggal upload",
       desc: "Visualmu lahir dalam hitungan detik — siap pasang ke feed, story, thumbnail, atau bahan iklan."
     }
   ];
 
   return (
-    <section className="relative border-b border-border py-20 lg:py-28 bg-[#0a0000] overflow-hidden">
+    <section className="relative border-b border-border py-20 lg:py-28 bg-background overflow-hidden">
       <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
       
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="max-w-3xl mb-16 lg:mb-24">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-            <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Alurnya Simpel</span>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="inline-flex items-center gap-2 rounded-full border border-hi/30 bg-hi/10 px-3 py-1 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-hi" />
+            <span className="font-mono text-[10px] tracking-widest text-hi font-bold uppercase">Alurnya Simpel</span>
           </motion.div>
-          <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
-            Tiga langkah, <span className="text-[#ef4444]">tanpa skill desain.</span>
+          <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
+            Tiga langkah, <span className="text-hi">tanpa skill desain.</span>
           </motion.h2>
-          <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mt-6 text-white/60 text-lg/relaxed">
+          <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mt-6 text-muted-foreground text-lg/relaxed">
             Dari kotak kosong ke visual siap upload — semua dalam satu sesi browser.
           </motion.p>
         </div>
@@ -1072,20 +1072,20 @@ function SimpleWorkflow() {
               className="flex flex-col items-center text-center"
             >
               {/* Icon Box */}
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border border-white/20 bg-transparent flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(239,68,68,0.05)] group transition-all duration-300 hover:border-red-500/50">
-                <div className="absolute top-0 right-0 translate-x-[20%] -translate-y-[20%] bg-red-500 text-white font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full z-10 shadow-lg shadow-red-500/20">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border border-hi/20 bg-hi flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(251,191,36,0.15)] group transition-all duration-300 hover:border-hi/50">
+                <div className="absolute top-0 right-0 translate-x-[20%] -translate-y-[20%] bg-black text-hi font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full z-10 shadow-lg shadow-black/20">
                   {step.num}
                 </div>
                 {step.icon}
-                <div className="absolute inset-0 bg-red-500/5 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-white/5 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
               {/* Text Card */}
-              <div className="w-full rounded-2xl border border-red-500/10 bg-[#110505] p-6 sm:p-8 flex-grow shadow-lg">
-                <h3 className="text-lg font-semibold text-white mb-3 tracking-tight">
+              <div className="w-full rounded-2xl border border-white/5 bg-surface p-6 sm:p-8 flex-grow shadow-lg">
+                <h3 className="text-lg font-semibold text-foreground mb-3 tracking-tight">
                   {step.title}
                 </h3>
-                <p className="text-sm text-white/60 leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {step.desc}
                 </p>
               </div>
@@ -1127,21 +1127,21 @@ function WhyChange() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-border py-20 lg:py-28 bg-[#0a0000]">
+    <section className="relative overflow-hidden border-b border-border py-20 lg:py-28 bg-background">
       {/* Subtle Grid / Noise */}
       <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-red-900/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-hi/5 blur-3xl pointer-events-none" />
       
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-            <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Kenapa Harus Berubah</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-hi/30 bg-hi/10 px-3 py-1 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-hi" />
+            <span className="font-mono text-[10px] tracking-widest text-hi font-bold uppercase">Kenapa Harus Berubah</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
-            Bikin satu banner saja, <span className="text-[#ef4444]">drama-nya banyak.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
+            Bikin satu banner saja, <span className="text-hi">drama-nya banyak.</span>
           </h2>
-          <p className="mt-6 text-white/60 text-lg/relaxed max-w-2xl">
+          <p className="mt-6 text-muted-foreground text-lg/relaxed max-w-2xl">
             Konten harian, promo flash sale, thumbnail YouTube, story TikTok — semua butuh visual.
             Tapi proses pembuatannya selalu sama: lambat, mahal, dan bikin pusing.
           </p>
@@ -1155,26 +1155,26 @@ function WhyChange() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
-              className="relative rounded-2xl border border-red-500/15 bg-gradient-to-br from-[#1a0505] to-[#0d0000] p-6 sm:p-8 overflow-hidden group hover:border-red-500/30 transition-colors"
+              className="relative rounded-2xl border border-white/5 bg-surface p-6 sm:p-8 overflow-hidden group hover:border-hi/30 transition-colors shadow-lg"
             >
               {/* Top right slanted corner */}
               <div className="absolute top-0 right-0">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M60 0H0L60 60V0Z" fill="rgb(239 68 68 / 0.05)"/>
+                  <path d="M60 0H0L60 60V0Z" fill="rgba(251,191,36,0.05)"/>
                 </svg>
-                <span className="absolute top-2 right-2 font-mono text-[9px] font-bold tracking-widest text-red-500/40">
+                <span className="absolute top-2 right-2 font-mono text-[9px] font-bold tracking-widest text-hi/40">
                   {card.num}
                 </span>
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-red-950/40 border border-red-500/20 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-hi/10 border border-hi/20 flex items-center justify-center text-hi mb-6 group-hover:scale-110 transition-transform">
                 {card.icon}
               </div>
               
-              <h3 className="text-lg font-semibold mb-3 text-white tracking-tight">
+              <h3 className="text-lg font-semibold mb-3 text-foreground tracking-tight">
                 {card.title}
               </h3>
-              <p className="text-sm text-white/50 leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {card.desc}
               </p>
             </motion.div>
@@ -1189,27 +1189,27 @@ function WhyChange() {
 function TheAnswer() {
   const features = [
     {
-      icon: <Image className="w-4 h-4 text-red-500" />,
+      icon: <Image className="w-4 h-4 text-hi" />,
       text: "Engine kreatif yang ngerti karakter visual komersial"
     },
     {
-      icon: <Layers className="w-4 h-4 text-red-500" />,
+      icon: <Layers className="w-4 h-4 text-hi" />,
       text: "11 mode kerja: Banner · Carousel · Thumbnail · Typography · Copy · Face Card · Menu F&B · Logo · Try-On · Review · Storyboard"
     },
     {
-      icon: <Sparkles className="w-4 h-4 text-red-500" />,
+      icon: <Sparkles className="w-4 h-4 text-hi" />,
       text: "Output siap upload — tanpa edit manual, tanpa retouch"
     },
     {
-      icon: <Ban className="w-4 h-4 text-red-500" />,
+      icon: <Ban className="w-4 h-4 text-hi" />,
       text: "Tanpa Canva, tanpa Photoshop, tanpa desainer freelance"
     }
   ];
 
   return (
-    <section className="relative border-b border-border py-20 lg:py-28 bg-[#0a0000] overflow-hidden">
+    <section className="relative border-b border-border py-20 lg:py-28 bg-background overflow-hidden">
       <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
-      <div className="absolute top-1/2 left-0 w-[30rem] h-[30rem] rounded-full bg-red-900/10 blur-3xl pointer-events-none -translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-1/2 left-0 w-[30rem] h-[30rem] rounded-full bg-hi/5 blur-3xl pointer-events-none -translate-y-1/2 -translate-x-1/2" />
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -1222,16 +1222,16 @@ function TheAnswer() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative"
           >
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-6 rounded-3xl border border-red-500/20 bg-red-950/10">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-6 rounded-3xl border border-hi/20 bg-hi/5">
               <img src="https://autofeeds.id/landing/ads-1x1/ig-07.jpg" alt="Ad 1" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
               <img src="https://autofeeds.id/landing/ads-1x1/ig-12.jpg" alt="Ad 2" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
               <img src="https://autofeeds.id/landing/ads-1x1/ig-04.jpg" alt="Ad 3" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
               <img src="https://autofeeds.id/landing/ads-1x1/ig-08.jpg" alt="Ad 4" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
             </div>
 
-            <div className="absolute -bottom-4 right-8 z-10 rounded-full border border-red-500/30 bg-[#110505] px-4 py-2 flex items-center gap-2 shadow-2xl">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">RENDER READY</span>
+            <div className="absolute -bottom-4 right-8 z-10 rounded-full border border-hi/30 bg-surface px-4 py-2 flex items-center gap-2 shadow-2xl">
+              <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" />
+              <span className="font-mono text-[10px] tracking-widest text-hi font-bold uppercase">RENDER READY</span>
             </div>
           </motion.div>
 
@@ -1243,26 +1243,26 @@ function TheAnswer() {
             variants={staggerContainer}
             className="max-w-xl"
           >
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-              <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Jawabannya Satu</span>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-hi/30 bg-hi/10 px-3 py-1 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-hi" />
+              <span className="font-mono text-[10px] tracking-widest text-hi font-bold uppercase">Jawabannya Satu</span>
             </motion.div>
             
-            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
-              Satu studio untuk <span className="text-[#ef4444]">semua kebutuhan visual</span> brand kamu.
+            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
+              Satu studio untuk <span className="text-hi">semua kebutuhan visual</span> brand kamu.
             </motion.h2>
             
-            <motion.p variants={fadeUp} className="mt-6 text-white/60 text-lg/relaxed">
-              Super AI Feed adalah <strong className="text-white/90">studio visual otomatis</strong> — engine yang sudah dilatih membaca karakter desain commercial-grade, sehingga hasilnya konsisten, sesuai brand, dan layak naik di feed.
+            <motion.p variants={fadeUp} className="mt-6 text-muted-foreground text-lg/relaxed">
+              Super AI Feed adalah <strong className="text-foreground">studio visual otomatis</strong> — engine yang sudah dilatih membaca karakter desain commercial-grade, sehingga hasilnya konsisten, sesuai brand, dan layak naik di feed.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-5">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-red-950/40 border border-red-500/20 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-hi/10 border border-hi/20 flex items-center justify-center shrink-0">
                     {feature.icon}
                   </div>
-                  <p className="text-sm text-white/70">
+                  <p className="text-sm text-muted-foreground">
                     {feature.text}
                   </p>
                 </div>
@@ -1653,8 +1653,8 @@ function Footer() {
         
         {/* Tombol Ungu */}
         <a 
-          href="/daftar-new" 
-          className="inline-block bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-bold text-[0.95rem] mb-[30px] shadow-[0_4px_14px_rgba(139,92,246,0.3)] hover:bg-[#7c3aed] hover:-translate-y-0.5 transition-all"
+          href="/daftar-feed" 
+          className="inline-block bg-transparent text-hi px-8 py-3 rounded-full font-bold text-[0.95rem] mb-[30px] shadow-[0_4px_14px_rgba(251,191,36,0.15)] border border-hi hover:bg-hi/10 hover:-translate-y-0.5 transition-all"
         >
           Tools Powered By @Irfansangjuara_
         </a>
@@ -1801,7 +1801,7 @@ function SalesPing() {
             Update Member Baru
           </p>
           <p className="text-[7px] sm:text-[9px] text-muted-foreground font-medium mt-0.5">
-            @CopilotMarketing
+            @Irfansangjuara_
           </p>
         </div>
         <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" />
