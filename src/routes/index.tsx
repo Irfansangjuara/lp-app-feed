@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 // Framer motion added above
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, Image, Video, Megaphone, PenTool, LayoutTemplate, Utensils, FileText, Sparkles, ArrowRight, GalleryHorizontal, Youtube, Type, ScanFace, Hexagon, Shirt, Star, Clapperboard } from "lucide-react";
+import { Bot, Image, Video, Megaphone, PenTool, LayoutTemplate, Utensils, FileText, Sparkles, ArrowRight, GalleryHorizontal, Youtube, Type, ScanFace, Hexagon, Shirt, Star, Clapperboard, Clock, Wallet, RefreshCcw, Layers, Ban, Cpu, Wand2 } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -44,12 +44,15 @@ function LandingPage() {
         <Hero />
         <Marquee />
         <HeroShowcase />
-        <ValueProp />
         <Audience />
         <Comparison />
         <CarouselFeeds />
         <Engines />
         <Testimonials />
+        <SimpleWorkflow />
+        <ValueProp />
+        <WhyChange />
+        <TheAnswer />
         <Showcase />
         <Pricing />
         <FAQ />
@@ -57,6 +60,7 @@ function LandingPage() {
       </main>
       <Footer />
       <SalesPing />
+      <FloatingBanner />
     </div>
   );
 }
@@ -107,31 +111,42 @@ function Hero() {
     <section id="top" className="relative overflow-hidden border-b border-border">
       <div className="absolute inset-0 grid-noise opacity-[0.18] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-[40rem] h-[40rem] rounded-full bg-hi/10 blur-3xl pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-10 items-center">
-        <motion.div className="lg:col-span-7" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-10 items-center">
+        
+        {/* Top Text (Headline) */}
+        <motion.div className="lg:col-span-7 lg:col-start-1 lg:row-start-1 order-1 flex flex-col items-start" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase border border-hi/40 text-hi px-3 py-1.5 rounded-full bg-hi/5">
             <span className="w-1.5 h-1.5 rounded-full bg-hi animate-pulse" />
-            Early Access · Batch Pertama
+            Early Access · Kuota Terbatas
           </motion.div>
           <motion.h1 variants={fadeUp} className="mt-6 text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] font-semibold tracking-tight">
             Tanpa Designer,<br />
             Buat Konten Ala <span className="text-hi">Desain Grafis</span> Profesional<br className="hidden sm:block" />
             dalam Hitungan Detik.
           </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+        </motion.div>
+
+        {/* Mockup Card */}
+        <motion.div className="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 order-2 w-full max-w-md mx-auto lg:max-w-none px-4 sm:px-6 lg:px-0" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}>
+          <MockupCard />
+        </motion.div>
+
+        {/* Bottom Text (Paragraph & CTA) */}
+        <motion.div className="lg:col-span-7 lg:col-start-1 lg:row-start-2 order-3 flex flex-col items-start" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
+          <motion.p variants={fadeUp} className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Generate desain iklan profesional untuk feed, ads, dan branding hanya dalam beberapa detik.
             Tanpa belajar desain, tanpa langganan tool mahal, tanpa nunggu revisi tiga hari.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3">
+          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <a
               href={CHECKOUT_URL}
-              className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition"
+              className="inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold glow-lime hover:translate-y-[-1px] transition w-full sm:w-auto"
             >
               Ambil Early Access — Rp 49.000
             </a>
             <motion.a
               href="#showcase"
-              className="inline-flex justify-center items-center gap-2 rounded-xl border border-border bg-surface px-6 py-4 text-base font-medium hover:bg-surface-2 transition"
+              className="inline-flex justify-center items-center gap-2 rounded-xl border border-border bg-surface px-6 py-4 text-base font-medium hover:bg-surface-2 transition w-full sm:w-auto"
             >
               Lihat Hasil Generate →
             </motion.a>
@@ -143,10 +158,6 @@ function Hero() {
           </motion.ul>
         </motion.div>
 
-        {/* Mockup */}
-        <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}>
-          <MockupCard />
-        </motion.div>
       </div>
     </section>
   );
@@ -229,22 +240,22 @@ function MockupCard() {
       <motion.div 
         animate={{ y: [0, -8, 0] }} 
         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-        className="absolute -top-6 -right-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-4 min-w-[140px]"
+        className="absolute -top-4 -right-2 sm:-top-6 sm:-right-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]"
       >
-        <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-1">FORMAT</div>
-        <div className="text-lg font-bold text-hi mb-1">Multi-rasio</div>
-        <div className="font-mono text-[9px] text-muted-foreground tracking-widest">AF-STUDIO · V2.1</div>
-        <div className="font-mono text-[9px] text-muted-foreground mt-1">IG · TT · YT · Story</div>
+        <div className="font-mono text-[8px] sm:text-[9px] text-muted-foreground tracking-widest mb-1">FORMAT</div>
+        <div className="text-base sm:text-lg font-bold text-hi mb-1">Multi-rasio</div>
+        <div className="font-mono text-[7px] sm:text-[9px] text-muted-foreground tracking-widest">AF-STUDIO · V2.1</div>
+        <div className="font-mono text-[7px] sm:text-[9px] text-muted-foreground mt-0.5 sm:mt-1">IG · TT · YT · Story</div>
       </motion.div>
 
       <motion.div 
         animate={{ y: [0, 8, 0] }} 
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-        className="absolute -bottom-6 -left-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-4 min-w-[140px]"
+        className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-8 z-30 rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-2xl p-2.5 sm:p-4 min-w-[110px] sm:min-w-[140px]"
       >
-        <div className="font-mono text-[9px] text-muted-foreground tracking-widest mb-1">RATA-RATA</div>
-        <div className="text-xl font-bold text-hi mb-1">&lt; 30 detik</div>
-        <div className="font-mono text-[10px] text-muted-foreground">brief → visual</div>
+        <div className="font-mono text-[8px] sm:text-[9px] text-muted-foreground tracking-widest mb-1">RATA-RATA</div>
+        <div className="text-lg sm:text-xl font-bold text-hi mb-1">&lt; 30 detik</div>
+        <div className="font-mono text-[8px] sm:text-[10px] text-muted-foreground">brief → visual</div>
       </motion.div>
 
       {/* Top Bar */}
@@ -885,7 +896,7 @@ function Audience() {
 function Comparison() {
   const rows = [
     ["Waktu produksi 1 banner", "4–24 jam", "Di bawah 1 menit"],
-    ["Biaya per banner", "Rp 50–500 ribu", "Termasuk paket"],
+    ["Biaya per banner", "Rp 50–500 ribu", "Free Akses"],
     ["Konsistensi gaya", "Tergantung mood", "Brand-locked"],
     ["Skill teknis dibutuhkan", "Photoshop / Illustrator", "Cuma isi form"],
     ["Revisi & iterasi", "Antri designer", "Re-generate instan"],
@@ -1009,6 +1020,262 @@ function Testimonials() {
   );
 }
 
+/* ============ SIMPLE WORKFLOW ============ */
+function SimpleWorkflow() {
+  const steps = [
+    {
+      num: "01",
+      icon: <PenTool className="w-8 h-8 text-red-500" />,
+      title: "Isi brief 30 detik",
+      desc: "Pilih kategori industri, isi nama produk, headline, dan warna brand. Tidak ada form panjang yang bikin males."
+    },
+    {
+      num: "02",
+      icon: <Cpu className="w-8 h-8 text-red-500" />,
+      title: "Engine racik visualnya",
+      desc: "Super AI Feed otomatis menyusun komposisi, lighting, typography, dan color grading — semua dipetakan presisi."
+    },
+    {
+      num: "03",
+      icon: <Wand2 className="w-8 h-8 text-red-500" />,
+      title: "Design jadi, tinggal upload",
+      desc: "Visualmu lahir dalam hitungan detik — siap pasang ke feed, story, thumbnail, atau bahan iklan."
+    }
+  ];
+
+  return (
+    <section className="relative border-b border-border py-20 lg:py-28 bg-[#0a0000] overflow-hidden">
+      <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
+      
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="max-w-3xl mb-16 lg:mb-24">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+            <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Alurnya Simpel</span>
+          </motion.div>
+          <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
+            Tiga langkah, <span className="text-[#ef4444]">tanpa skill desain.</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mt-6 text-white/60 text-lg/relaxed">
+            Dari kotak kosong ke visual siap upload — semua dalam satu sesi browser.
+          </motion.p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
+          {steps.map((step, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="flex flex-col items-center text-center"
+            >
+              {/* Icon Box */}
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border border-white/20 bg-transparent flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(239,68,68,0.05)] group transition-all duration-300 hover:border-red-500/50">
+                <div className="absolute top-0 right-0 translate-x-[20%] -translate-y-[20%] bg-red-500 text-white font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full z-10 shadow-lg shadow-red-500/20">
+                  {step.num}
+                </div>
+                {step.icon}
+                <div className="absolute inset-0 bg-red-500/5 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+
+              {/* Text Card */}
+              <div className="w-full rounded-2xl border border-red-500/10 bg-[#110505] p-6 sm:p-8 flex-grow shadow-lg">
+                <h3 className="text-lg font-semibold text-white mb-3 tracking-tight">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-white/60 leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============ WHY CHANGE ============ */
+function WhyChange() {
+  const cards = [
+    {
+      icon: <Clock className="w-5 h-5" />,
+      num: "01/04",
+      title: "Revisi designer berhari-hari",
+      desc: "Brief masuk Senin, file final baru kelar Kamis. Padahal momen iklan udah lewat duluan.",
+    },
+    {
+      icon: <Wallet className="w-5 h-5" />,
+      num: "02/04",
+      title: "Biaya tool desain numpuk",
+      desc: "Langganan Canva Pro, stok foto, plugin Photoshop — habis sebelum konten cuan.",
+    },
+    {
+      icon: <RefreshCcw className="w-5 h-5" />,
+      num: "03/04",
+      title: "Output AI gak konsisten",
+      desc: "Tool AI sembarangan ujungnya hasil aneh, warna meleset, layout berantakan.",
+    },
+    {
+      icon: <Sparkles className="w-5 h-5" />,
+      num: "04/04",
+      title: "Gak ngerti istilah desain",
+      desc: "Tipografi? Composition? Color grading? Kamu cuma mau hasil yang clean dan jualan.",
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden border-b border-border py-20 lg:py-28 bg-[#0a0000]">
+      {/* Subtle Grid / Noise */}
+      <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-red-900/10 blur-3xl pointer-events-none" />
+      
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+            <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Kenapa Harus Berubah</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
+            Bikin satu banner saja, <span className="text-[#ef4444]">drama-nya banyak.</span>
+          </h2>
+          <p className="mt-6 text-white/60 text-lg/relaxed max-w-2xl">
+            Konten harian, promo flash sale, thumbnail YouTube, story TikTok — semua butuh visual.
+            Tapi proses pembuatannya selalu sama: lambat, mahal, dan bikin pusing.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-16">
+          {cards.map((card, i) => (
+            <motion.div 
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              className="relative rounded-2xl border border-red-500/15 bg-gradient-to-br from-[#1a0505] to-[#0d0000] p-6 sm:p-8 overflow-hidden group hover:border-red-500/30 transition-colors"
+            >
+              {/* Top right slanted corner */}
+              <div className="absolute top-0 right-0">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M60 0H0L60 60V0Z" fill="rgb(239 68 68 / 0.05)"/>
+                </svg>
+                <span className="absolute top-2 right-2 font-mono text-[9px] font-bold tracking-widest text-red-500/40">
+                  {card.num}
+                </span>
+              </div>
+
+              <div className="w-12 h-12 rounded-xl bg-red-950/40 border border-red-500/20 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                {card.icon}
+              </div>
+              
+              <h3 className="text-lg font-semibold mb-3 text-white tracking-tight">
+                {card.title}
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                {card.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============ THE ANSWER ============ */
+function TheAnswer() {
+  const features = [
+    {
+      icon: <Image className="w-4 h-4 text-red-500" />,
+      text: "Engine kreatif yang ngerti karakter visual komersial"
+    },
+    {
+      icon: <Layers className="w-4 h-4 text-red-500" />,
+      text: "11 mode kerja: Banner · Carousel · Thumbnail · Typography · Copy · Face Card · Menu F&B · Logo · Try-On · Review · Storyboard"
+    },
+    {
+      icon: <Sparkles className="w-4 h-4 text-red-500" />,
+      text: "Output siap upload — tanpa edit manual, tanpa retouch"
+    },
+    {
+      icon: <Ban className="w-4 h-4 text-red-500" />,
+      text: "Tanpa Canva, tanpa Photoshop, tanpa desainer freelance"
+    }
+  ];
+
+  return (
+    <section className="relative border-b border-border py-20 lg:py-28 bg-[#0a0000] overflow-hidden">
+      <div className="absolute inset-0 grid-noise opacity-[0.1] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[30rem] h-[30rem] rounded-full bg-red-900/10 blur-3xl pointer-events-none -translate-y-1/2 -translate-x-1/2" />
+
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Column - Image Grid */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative"
+          >
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-6 rounded-3xl border border-red-500/20 bg-red-950/10">
+              <img src="https://autofeeds.id/landing/ads-1x1/ig-07.jpg" alt="Ad 1" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="https://autofeeds.id/landing/ads-1x1/ig-12.jpg" alt="Ad 2" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="https://autofeeds.id/landing/ads-1x1/ig-04.jpg" alt="Ad 3" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="https://autofeeds.id/landing/ads-1x1/ig-08.jpg" alt="Ad 4" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+            </div>
+
+            <div className="absolute -bottom-4 right-8 z-10 rounded-full border border-red-500/30 bg-[#110505] px-4 py-2 flex items-center gap-2 shadow-2xl">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">RENDER READY</span>
+            </div>
+          </motion.div>
+
+          {/* Right Column - Content */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerContainer}
+            className="max-w-xl"
+          >
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+              <span className="font-mono text-[10px] tracking-widest text-red-500 font-bold uppercase">Jawabannya Satu</span>
+            </motion.div>
+            
+            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-[1.1]">
+              Satu studio untuk <span className="text-[#ef4444]">semua kebutuhan visual</span> brand kamu.
+            </motion.h2>
+            
+            <motion.p variants={fadeUp} className="mt-6 text-white/60 text-lg/relaxed">
+              Super AI Feed adalah <strong className="text-white/90">studio visual otomatis</strong> — engine yang sudah dilatih membaca karakter desain commercial-grade, sehingga hasilnya konsisten, sesuai brand, dan layak naik di feed.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-5">
+              {features.map((feature, idx) => (
+                <div key={idx} className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-red-950/40 border border-red-500/20 flex items-center justify-center shrink-0">
+                    {feature.icon}
+                  </div>
+                  <p className="text-sm text-white/70">
+                    {feature.text}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ============ SHOWCASE ============ */
 const CDN = "https://autofeeds.id/landing";
 const num = (n: number) => String(n).padStart(2, "0");
@@ -1047,31 +1314,36 @@ const MENU_FB = [
 ];
 
 function ShowGrid({
-  items, aspect, label, cols = "grid-cols-2 md:grid-cols-4 lg:grid-cols-5",
-}: { items: string[]; aspect: string; label: string; cols?: string }) {
+  items, aspect, label, reverse = false, widthClass = "w-48 md:w-64"
+}: { items: string[]; aspect: string; label: string; reverse?: boolean; widthClass?: string }) {
   return (
-    <div>
-      <div className="flex items-baseline justify-between mb-4">
+    <div className="relative">
+      <div className="flex items-baseline justify-between mb-4 px-2 sm:px-0">
         <div className="font-mono text-xs text-hi tracking-widest">/{label}</div>
         <div className="font-mono text-[10px] text-muted-foreground">{items.length} VARIANT</div>
       </div>
-      <div className={`grid ${cols} gap-2 sm:gap-3`}>
-        {items.map((src, i) => (
-          <div
-            key={src}
-            className={`relative ${aspect} rounded-lg border border-border overflow-hidden bg-surface group`}
-          >
-            <img
-              src={src}
-              alt={`${label} ${i + 1}`}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute top-2 right-2 font-mono text-[9px] text-white/80 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded">
-              {num(i + 1)}
+      
+      <div className="relative overflow-hidden -mx-5 lg:-mx-8">
+        <div className="absolute inset-y-0 left-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        <div className={`flex w-max ${reverse ? 'ticker-reverse' : 'ticker'} hover:[animation-play-state:paused] py-2`} style={{ animationDuration: '45s' }}>
+          {[...items, ...items].map((src, i) => (
+            <div key={i} className="px-2 md:px-3 shrink-0">
+              <div className={`relative ${aspect} ${widthClass} rounded-xl md:rounded-2xl border border-border overflow-hidden bg-surface group shadow-lg`}>
+                <img
+                  src={src}
+                  alt={`${label} ${i + 1}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute top-2 right-2 font-mono text-[9px] text-white/80 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded border border-white/10">
+                  {num((i % items.length) + 1)}
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -1104,11 +1376,11 @@ function Showcase() {
           ))}
         </motion.div>
 
-        <div className="mt-16 space-y-16">
-          <ShowGrid items={TYPO_ADS} aspect="aspect-[4/5]" label="TYPOGRAPHY ADS · 4:5" />
-          <ShowGrid items={VERT_ADS} aspect="aspect-[9/16]" label="VERTICAL CONTENT · 9:16" />
-          <ShowGrid items={LANDSCAPE_ADS} aspect="aspect-video" label="LANDSCAPE & THUMBNAIL · 16:9" cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
-          <ShowGrid items={FEED_ADS} aspect="aspect-square" label="FEED ADS · 1:1" />
+        <div className="mt-16 space-y-12">
+          <ShowGrid items={TYPO_ADS} aspect="aspect-[4/5]" label="TYPOGRAPHY ADS · 4:5" widthClass="w-44 md:w-56" />
+          <ShowGrid items={VERT_ADS} aspect="aspect-[9/16]" label="VERTICAL CONTENT · 9:16" reverse={true} widthClass="w-40 md:w-48" />
+          <ShowGrid items={LANDSCAPE_ADS} aspect="aspect-video" label="LANDSCAPE & THUMBNAIL · 16:9" widthClass="w-64 md:w-80" />
+          <ShowGrid items={FEED_ADS} aspect="aspect-square" label="FEED ADS · 1:1" reverse={true} widthClass="w-48 md:w-64" />
 
           {/* Face Card */}
           <div>
@@ -1202,6 +1474,10 @@ function Pricing() {
   }, []);
 
   const features = [
+    "Free Tools Image to Json Prompt GEMINI PRO (Unlimited)",
+    "Free Tools Image to Json Prompt CHATGPT (Unlimited)",
+    "Free Generate Image Tools GEMINI (Lifetime)",
+    "Free Generate Image Tools CHATGPT (Lifetime)",
     "Ribuan gaya visual, satu studio",
     "10 mode kreatif (Banner / Thumbnail / Ads / Copy / Face Card / Menu F&B)",
     "4 Affiliate Tools (Logo · Try-On · Review · Storyboard)",
@@ -1261,7 +1537,7 @@ function Pricing() {
                 <span className="text-sm text-muted-foreground">sekali bayar · selamanya</span>
               </div>
               <div className="mt-1 font-mono text-[10px] tracking-widest text-hi">
-                TANPA LANGGANAN · TANPA BIAYA TERSEMBUNYI
+                Daftar Sekali - Akses Selamanya
               </div>
 
               <ul className="mt-8 space-y-3">
@@ -1279,8 +1555,8 @@ function Pricing() {
               >
                 Klaim Early Access Sekarang →
               </a>
-              <div className="mt-4 text-center font-mono text-[10px] tracking-widest text-muted-foreground">
-                TRANSFER · QRIS · OVO · GOPAY · DANA
+              <div className="mt-4 text-center text-sm md:text-base font-bold text-hi">
+                Harga Sewaktu-waktu Dapat Berubah, Tanpa Ada Pemberitahuan. Amankan Segera Promo Hari ini!
               </div>
             </div>
           </motion.div>
@@ -1372,78 +1648,196 @@ function Closing() {
 /* ============ FOOTER ============ */
 function Footer() {
   return (
-    <footer className="bg-background">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 py-16 grid md:grid-cols-3 gap-10">
-        <div>
-          <div className="flex items-baseline gap-3">
-            <span className="text-hi font-mono">◆</span>
-            <span className="font-semibold">Super AI Feed 1.2</span>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
-            Studio visual otomatis untuk banner, thumbnail, ads, dan typography. Dibangun di Indonesia
-            untuk creator dan brand yang lelah nunggu designer.
-          </p>
+    <footer className="mt-8 bg-black py-10 px-4 sm:py-12 sm:px-6 text-center text-white">
+      <div className="mx-auto max-w-[800px] p-0">
+        
+        {/* Tombol Ungu */}
+        <a 
+          href="/daftar-new" 
+          className="inline-block bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-bold text-[0.95rem] mb-[30px] shadow-[0_4px_14px_rgba(139,92,246,0.3)] hover:bg-[#7c3aed] hover:-translate-y-0.5 transition-all"
+        >
+          Tools Powered By @Irfansangjuara_
+        </a>
+
+        {/* Baris 1: Gambar Profil/Sponsor disusun sejajar 1 baris di tengah */}
+        <div className="flex flex-col items-center gap-6 mb-12">
+          <img 
+            src="https://res.cloudinary.com/dceu5m3fm/image/upload/f_auto,q_auto:best,dpr_auto,c_limit,w_1200/v1774617869/poster_copilot_marketing_dynamic_v2_ylzscn.png" 
+            alt="Sponsor 1" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775534181/Profil_13_qg0d40.png" 
+            alt="Sponsor 2" 
+            loading="lazy" 
+            decoding="async" 
+            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-2xl bg-white p-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775800852/IG_1_bfuux9.png" 
+            alt="Sponsor 3" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109356/profile-cv-irfan_nyyt5o.webp" 
+            alt="Sponsor 4" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109782/Badge_nfryio.png" 
+            alt="Sponsor 5" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+          />
         </div>
-        <div>
-          <div className="font-mono text-xs tracking-widest text-muted-foreground">STUDIO</div>
-          <ul className="mt-4 space-y-2 text-sm">
-            {NAV.map((n) => (
-              <li key={n.href}><a href={n.href} className="hover:text-hi transition">{n.label}</a></li>
-            ))}
-          </ul>
+
+        {/* Baris 2: Sertifikat Google dalam 2 kolom grid */}
+        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-6 sm:gap-4 max-w-full sm:max-w-[500px] mx-auto items-center mb-12 sm:mb-0">
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-search_vaimwh.jpg" 
+            alt="Certificate 1" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-analytics_aqlxmj.jpg" 
+            alt="Certificate 2" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-video_wucpvd.jpg" 
+            alt="Certificate 3" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+          />
+          <img 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109355/cert-google-gemini_aszwll.png" 
+            alt="Certificate 4" 
+            loading="lazy" 
+            decoding="async"
+            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+          />
         </div>
-        <div>
-          <div className="font-mono text-xs tracking-widest text-muted-foreground">SOCIAL</div>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li><a href="#" className="hover:text-hi transition">@superaifeed</a></li>
-            <li><a href="#" className="hover:text-hi transition">SuperAIFeed</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8 py-6 font-mono text-[10px] tracking-widest text-muted-foreground flex flex-col sm:flex-row justify-between gap-2">
-          <span>© 2026 SUPER AI FEED 1.2 · ALL RIGHTS RESERVED</span>
-          <span>V2.1 · EARLY ACCESS BUILD</span>
-        </div>
+
       </div>
     </footer>
   );
 }
 
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 /* ============ SALES PING ============ */
 function SalesPing() {
-  const [visible, setVisible] = useState(false);
-  const [idx, setIdx] = useState(0);
-  const pings = [
+  const [show, setShow] = useState(false);
+  
+  const originalPings = [
     "tasy*********@gmail.com",
     "rendr*******@gmail.com",
     "auli********@gmail.com",
     "bagas*******@gmail.com",
     "dinda*******@gmail.com",
   ];
+  
+  const [current, setCurrent] = useState(originalPings[0]);
+
   useEffect(() => {
-    const cycle = () => {
-      setVisible(true);
-      setTimeout(() => setVisible(false), 5500);
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let queue = shuffle(originalPings);
+    let idx = 0;
+
+    const showNotif = () => {
+      setCurrent(queue[idx]);
+      idx += 1;
+      if (idx >= queue.length) {
+        queue = shuffle(originalPings);
+        idx = 0;
+      }
+      setShow(true);
+      setTimeout(() => setShow(false), 4000);
+      const nextDelay = 12000 + Math.floor(Math.random() * 3000);
+      timeoutId = setTimeout(showNotif, nextDelay);
     };
-    const t1 = setTimeout(cycle, 3500);
-    const id = setInterval(() => {
-      setIdx((p) => (p + 1) % pings.length);
-      cycle();
-    }, 11000);
-    return () => { clearTimeout(t1); clearInterval(id); };
+
+    timeoutId = setTimeout(showNotif, 8000);
+    return () => clearTimeout(timeoutId);
   }, []);
+
   return (
     <div
-      className={`fixed bottom-5 left-5 z-50 transition-all duration-500 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+      className={`fixed bottom-24 md:bottom-20 left-3 md:left-5 z-[100] bg-surface/95 backdrop-blur-md border border-border rounded-2xl shadow-2xl transition-all duration-500 ${
+        show ? "translate-x-0 opacity-100" : "-translate-x-[130%] opacity-0"
       }`}
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
     >
-      <div className="rounded-xl border border-border bg-surface/95 backdrop-blur p-3 pr-4 flex items-center gap-3 shadow-2xl max-w-xs">
-        <div className="w-9 h-9 rounded-lg bg-hi/15 border border-hi/30 flex items-center justify-center text-hi">✓</div>
-        <div>
-          <div className="text-sm font-medium">{pings[idx]}</div>
-          <div className="font-mono text-[10px] text-muted-foreground tracking-widest">MEMBELI · VIA @Irfansnagjuara</div>
+      <div className="flex items-center gap-2 p-2 sm:gap-3 sm:p-3 w-[172px] sm:w-[268px]">
+        <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-xl bg-hi/15 border border-hi/30 flex items-center justify-center flex-shrink-0 shadow-md shadow-hi/10">
+          <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-hi" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-[9px] sm:text-xs font-bold text-foreground truncate leading-tight">
+            {current} baru saja bergabung!
+          </p>
+          <p className="text-[8px] sm:text-[10px] text-hi font-bold mt-0.5">
+            Update Member Baru
+          </p>
+          <p className="text-[7px] sm:text-[9px] text-muted-foreground font-medium mt-0.5">
+            @CopilotMarketing
+          </p>
+        </div>
+        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
+/* ============ FLOATING BANNER ============ */
+function FloatingBanner() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-[50] flex justify-center items-end p-3 md:p-0 pointer-events-none">
+      <div 
+        className="bg-white/10 backdrop-blur-lg border border-white/20 md:border-x-0 md:border-b-0 shadow-[0_-10px_40px_rgba(251,191,36,0.15)] rounded-2xl md:rounded-none w-full pointer-events-auto flex justify-center flex-none"
+      >
+        <div className="w-full max-w-6xl mx-auto flex flex-row items-center justify-between gap-2 sm:gap-6 p-2.5 sm:p-3 md:px-6 md:py-1.5">
+          <div className="flex items-center gap-1.5 sm:gap-3 text-left flex-1 min-w-0">
+            <span className="text-3xl sm:text-4xl shrink-0 leading-none">🔥</span>
+            <p className="text-[10px] sm:text-[12px] md:text-[13px] font-bold text-foreground leading-[1.3] line-clamp-2 text-left">
+              Mumpung masih <span className="bg-hi text-primary-foreground px-1 rounded whitespace-nowrap">Diskon 75%</span>, buruan daftar sebelum harga NAIK!
+            </p>
+          </div>
+          
+          <a 
+            href="#harga" 
+            className="flex items-center justify-center gap-1.5 bg-hi text-primary-foreground text-[11px] sm:text-[13.5px] md:text-[14px] font-black px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl hover:shadow-lg hover:shadow-hi/30 transition-all shrink-0"
+          >
+            <span>Claim Sekarang</span>
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6-6m6 6l-6 6" />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
