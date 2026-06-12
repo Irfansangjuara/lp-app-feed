@@ -172,11 +172,11 @@ const SCENARIOS = [
     ratio: "1:1 Instagram ▾",
     colors: ["#8B4513", "#FFFFFF"],
     images: [
-      "https://autofeeds.id/landing/ads-1x1/ig-01.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-02.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-03.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-04.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-05.jpg",
+      "/landing/ads-1x1/ig-01.webp",
+      "/landing/ads-1x1/ig-02.webp",
+      "/landing/ads-1x1/ig-03.webp",
+      "/landing/ads-1x1/ig-04.webp",
+      "/landing/ads-1x1/ig-05.webp",
     ]
   },
   {
@@ -187,11 +187,11 @@ const SCENARIOS = [
     ratio: "1:1 Instagram ▾",
     colors: ["#ec4899", "#ffffff"],
     images: [
-      "https://autofeeds.id/landing/ads-1x1/ig-06.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-07.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-08.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-09.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-10.jpg",
+      "/landing/ads-1x1/ig-06.webp",
+      "/landing/ads-1x1/ig-07.webp",
+      "/landing/ads-1x1/ig-08.webp",
+      "/landing/ads-1x1/ig-09.webp",
+      "/landing/ads-1x1/ig-10.webp",
     ]
   },
   {
@@ -202,11 +202,11 @@ const SCENARIOS = [
     ratio: "1:1 Instagram ▾",
     colors: ["#ef4444", "#f59e0b"],
     images: [
-      "https://autofeeds.id/landing/ads-1x1/ig-11.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-13.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-14.jpg",
-      "https://autofeeds.id/landing/ads-1x1/ig-15.jpg",
+      "/landing/ads-1x1/ig-11.webp",
+      "/landing/ads-1x1/ig-12.webp",
+      "/landing/ads-1x1/ig-13.webp",
+      "/landing/ads-1x1/ig-14.webp",
+      "/landing/ads-1x1/ig-15.webp",
     ]
   }
 ];
@@ -431,7 +431,7 @@ function Field({ label, value }: { label: string; value: string }) {
 
 /* ============ HERO SHOWCASE ============ */
 function HeroShowcase() {
-  const images = Array.from({ length: 20 }, (_, i) => `https://autofeeds.id/landing/ads-1x1/ig-${String(i + 1).padStart(2, "0")}.jpg`);
+  const images = Array.from({ length: 20 }, (_, i) => `/landing/ads-1x1/ig-${String(i + 1).padStart(2, "0")}.webp`);
   const row1 = images.slice(0, 10);
   const row2 = images.slice(10, 20);
 
@@ -500,9 +500,9 @@ function Marquee() {
 function CarouselFeeds() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
-    "https://autofeeds.id/landing/ads-1x1/ig-05.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-12.jpg",
-    "https://autofeeds.id/landing/ads-1x1/ig-14.jpg",
+    "/landing/ads-1x1/ig-05.webp",
+    "/landing/ads-1x1/ig-12.webp",
+    "/landing/ads-1x1/ig-14.webp",
   ];
 
   useEffect(() => {
@@ -627,7 +627,7 @@ function CarouselFeeds() {
 
 /* ============ ENGINES ============ */
 function Engines() {
-  const CDN = "https://autofeeds.id/landing";
+  const CDN = "/landing";
   const engines = [
     {
       id: "M1",
@@ -635,7 +635,7 @@ function Engines() {
       title: "Design Grafis",
       desc: "Brief produk → banner komersial siap upload. Cocok buat feed IG, marketplace, hero website.",
       bullets: ["Komposisi commercial-grade", "Aspect 1:1 / 4:5 / 16:9", "Sesuai brand color"],
-      img: `${CDN}/ads-1x1/ig-01.jpg`,
+      img: `${CDN}/ads-1x1/ig-01.webp`,
       aspect: "1/1"
     },
     {
@@ -644,7 +644,7 @@ function Engines() {
       title: "Carousel Feeds",
       desc: "Satu cerita, banyak slide. Pilih tipe template & jumlah slide → alur, layout, dan visual tiap slide tersusun otomatis.",
       bullets: ["12+ tipe template + News", "3–7 slide otomatis nyambung", "Layout tiap slide variatif"],
-      img: `${CDN}/ads-1x1/ig-12.jpg`,
+      img: `${CDN}/ads-1x1/ig-12.webp`,
       aspect: "4/5"
     },
     {
@@ -653,7 +653,7 @@ function Engines() {
       title: "YouTube Thumbnail",
       desc: "Cetak thumbnail yang clickable: composition, ekspresi, dan teks overlay sudah diatur.",
       bullets: ["CTR-oriented layout", "Text overlay otomatis", "Subject pose & emotion"],
-      img: `${CDN}/ads-16x9/yt-01.jpg`,
+      img: `${CDN}/ads-16x9/yt-01.webp`,
       aspect: "16/9"
     },
     {
@@ -662,7 +662,7 @@ function Engines() {
       title: "Typography Ads",
       desc: "Ads tipografi premium dengan 8 layer kreatif: title, art direction, palette, conversion, dst.",
       bullets: ["8 layer kreatif", "Premium typography ads", "Per-section copy button"],
-      img: `${CDN}/ads-typography/typo-01.jpg`,
+      img: `${CDN}/ads-typography/typo-01.webp`,
       aspect: "4/5"
     },
     {
@@ -671,7 +671,7 @@ function Engines() {
       title: "Copy Writing",
       desc: "Auto-generate hook, body, dan CTA — formatnya match dengan visual yang lagi kamu kerjain.",
       bullets: ["Hook - Body - CTA", "Tone selector", "Match banner context"],
-      img: `${CDN}/modes/copy-preview.jpg`,
+      img: `${CDN}/modes/copy-preview.webp`,
       aspect: "1/1"
     },
     {
@@ -680,7 +680,7 @@ function Engines() {
       title: "Face Card Analysis ★",
       desc: "Upload 1 portrait → 5 board analisa premium: face features, style, color, makeup. Personal stylist dalam 1 klik.",
       bullets: ["5 sub-type analysis", "Editorial magazine quality", "Male & female friendly"],
-      img: `${CDN}/face-card/style-analysis.jpg`,
+      img: `${CDN}/face-card/style-analysis.webp`,
       aspect: "4/5"
     },
     {
@@ -689,7 +689,7 @@ function Engines() {
       title: "Menu F&B ★",
       desc: "9 template premium untuk resto, patisserie, bakery — dari Parisian luxury sampai Korean street food viral.",
       bullets: ["9 template siap pakai", "5 layout style", "Dynamic menu editor"],
-      img: `${CDN}/menu-fb/patisserie-luxury.jpg`,
+      img: `${CDN}/menu-fb/patisserie-luxury.webp`,
       aspect: "4/5"
     },
     {
@@ -698,7 +698,7 @@ function Engines() {
       title: "Logo Produk ★",
       desc: "Logo brand affiliate-ready + tempel logo ke merchandise & brand mockup. Hasil langsung jadi logo.",
       bullets: ["Logo + Brand Mockup", "Custom HEX palette", "21 media mockup"],
-      img: `${CDN}/ads-1x1/ig-15.jpg`,
+      img: `${CDN}/ads-1x1/ig-15.webp`,
       aspect: "1/1"
     },
     {
@@ -707,7 +707,7 @@ function Engines() {
       title: "Try-On Produk ★",
       desc: "Upload foto produk → model pakai produknya. Visual try-on/wear-test konversi tinggi untuk affiliate.",
       bullets: ["Upload produk → try-on", "15 mode try-on", "Optimasi per platform"],
-      img: `${CDN}/ads-1x1/ig-09.jpg`,
+      img: `${CDN}/ads-1x1/ig-09.webp`,
       aspect: "4/5"
     },
     {
@@ -716,7 +716,7 @@ function Engines() {
       title: "Review Produk ★",
       desc: "Banner review produk high-converting. 10 review framework + custom warna + wireframe preview live.",
       bullets: ["10 review framework", "Custom warna + badge", "Wireframe preview live"],
-      img: `${CDN}/ads-1x1/ig-10.jpg`,
+      img: `${CDN}/ads-1x1/ig-10.webp`,
       aspect: "4/5"
     },
     {
@@ -725,7 +725,7 @@ function Engines() {
       title: "Video Storyboard ★",
       desc: "Storyboard board scene-by-scene yang dibuat otomatis sesuai durasi — landscape 16:9, banyak scene cepat.",
       bullets: ["Board 16:9 landscape", "Scene auto per durasi", "VO + overlay + visual"],
-      img: `${CDN}/ads-16x9/yt-02.jpg`,
+      img: `${CDN}/ads-16x9/yt-02.webp`,
       aspect: "16/9"
     }
   ];
@@ -1223,10 +1223,10 @@ function TheAnswer() {
             className="relative"
           >
             <div className="grid grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-6 rounded-3xl border border-hi/20 bg-hi/5">
-              <img src="https://autofeeds.id/landing/ads-1x1/ig-07.jpg" alt="Ad 1" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
-              <img src="https://autofeeds.id/landing/ads-1x1/ig-12.jpg" alt="Ad 2" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
-              <img src="https://autofeeds.id/landing/ads-1x1/ig-04.jpg" alt="Ad 3" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
-              <img src="https://autofeeds.id/landing/ads-1x1/ig-08.jpg" alt="Ad 4" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="/landing/ads-1x1/ig-07.webp" alt="Ad 1" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="/landing/ads-1x1/ig-12.webp" alt="Ad 2" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="/landing/ads-1x1/ig-04.webp" alt="Ad 3" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
+              <img src="/landing/ads-1x1/ig-08.webp" alt="Ad 4" className="w-full aspect-square object-cover rounded-xl border border-white/10" />
             </div>
 
             <div className="absolute -bottom-4 right-8 z-10 rounded-full border border-hi/30 bg-surface px-4 py-2 flex items-center gap-2 shadow-2xl">
@@ -1277,40 +1277,40 @@ function TheAnswer() {
 }
 
 /* ============ SHOWCASE ============ */
-const CDN = "https://autofeeds.id/landing";
+const CDN = "/landing";
 const num = (n: number) => String(n).padStart(2, "0");
 const range = (n: number) => Array.from({ length: n }, (_, i) => i + 1);
 
 const PREVIEW_MODES = [
-  { label: "BANNER", img: `${CDN}/modes/banner-preview.jpg` },
-  { label: "THUMBNAIL", img: `${CDN}/modes/thumbnail-preview.jpg` },
-  { label: "TYPOGRAPHY", img: `${CDN}/modes/typography-preview.jpg` },
-  { label: "COPY", img: `${CDN}/modes/copy-preview.jpg` },
+  { label: "BANNER", img: `${CDN}/modes/banner-preview.webp` },
+  { label: "THUMBNAIL", img: `${CDN}/modes/thumbnail-preview.webp` },
+  { label: "TYPOGRAPHY", img: `${CDN}/modes/typography-preview.webp` },
+  { label: "COPY", img: `${CDN}/modes/copy-preview.webp` },
 ];
 
-const TYPO_ADS = range(20).map((i) => `${CDN}/ads-typography/typo-${num(i)}.jpg`);
-const VERT_ADS = range(20).map((i) => `${CDN}/ads-9x16/vert-${num(i)}.jpg`);
-const LANDSCAPE_ADS = range(20).map((i) => `${CDN}/ads-16x9/yt-${num(i)}.jpg`);
-const FEED_ADS = range(20).map((i) => `${CDN}/ads-1x1/ig-${num(i)}.jpg`);
+const TYPO_ADS = range(20).map((i) => `${CDN}/ads-typography/typo-${num(i)}.webp`);
+const VERT_ADS = range(20).map((i) => `${CDN}/ads-9x16/vert-${num(i)}.webp`);
+const LANDSCAPE_ADS = range(20).map((i) => `${CDN}/ads-16x9/yt-${num(i)}.webp`);
+const FEED_ADS = range(20).map((i) => `${CDN}/ads-1x1/ig-${num(i)}.webp`);
 
 const FACE_CARDS = [
-  { t: "Face Features", img: `${CDN}/face-card/face-features.jpg` },
-  { t: "Spectacles Guide", img: `${CDN}/face-card/spectacles-guide.jpg` },
-  { t: "Style Analysis", img: `${CDN}/face-card/style-analysis.jpg` },
-  { t: "Color Analysis", img: `${CDN}/face-card/color-analysis.jpg` },
-  { t: "Makeup Analysis", img: `${CDN}/face-card/makeup-analysis.jpg` },
+  { t: "Face Features", img: `${CDN}/face-card/face-features.webp` },
+  { t: "Spectacles Guide", img: `${CDN}/face-card/spectacles-guide.webp` },
+  { t: "Style Analysis", img: `${CDN}/face-card/style-analysis.webp` },
+  { t: "Color Analysis", img: `${CDN}/face-card/color-analysis.webp` },
+  { t: "Makeup Analysis", img: `${CDN}/face-card/makeup-analysis.webp` },
 ];
 
 const MENU_FB = [
-  { t: "Patisserie Luxury", img: `${CDN}/menu-fb/patisserie-luxury.jpg` },
-  { t: "Healthy Editorial", img: `${CDN}/menu-fb/healthy-editorial.jpg` },
-  { t: "Korean Street", img: `${CDN}/menu-fb/korean-street.jpg` },
-  { t: "Indo Heritage", img: `${CDN}/menu-fb/indo-heritage.jpg` },
-  { t: "Japanese Premium", img: `${CDN}/menu-fb/japanese-premium.jpg` },
-  { t: "Retro Marketplace", img: `${CDN}/menu-fb/retro-marketplace.jpg` },
-  { t: "Homemade Cozy", img: `${CDN}/menu-fb/homemade-cozy.jpg` },
-  { t: "Betawi Festive", img: `${CDN}/menu-fb/betawi-festive.jpg` },
-  { t: "Rice Bowl Modern", img: `${CDN}/menu-fb/rice-bowl-modern.jpg` },
+  { t: "Patisserie Luxury", img: `${CDN}/menu-fb/patisserie-luxury.webp` },
+  { t: "Healthy Editorial", img: `${CDN}/menu-fb/healthy-editorial.webp` },
+  { t: "Korean Street", img: `${CDN}/menu-fb/korean-street.webp` },
+  { t: "Indo Heritage", img: `${CDN}/menu-fb/indo-heritage.webp` },
+  { t: "Japanese Premium", img: `${CDN}/menu-fb/japanese-premium.webp` },
+  { t: "Retro Marketplace", img: `${CDN}/menu-fb/retro-marketplace.webp` },
+  { t: "Homemade Cozy", img: `${CDN}/menu-fb/homemade-cozy.webp` },
+  { t: "Betawi Festive", img: `${CDN}/menu-fb/betawi-festive.webp` },
+  { t: "Rice Bowl Modern", img: `${CDN}/menu-fb/rice-bowl-modern.webp` },
 ];
 
 function ShowGrid({
@@ -1701,21 +1701,21 @@ function Footer() {
         {/* Baris 2: Sertifikat Google dalam 2 kolom grid */}
         <div className="flex flex-col sm:grid sm:grid-cols-2 gap-6 sm:gap-4 max-w-full sm:max-w-[500px] mx-auto items-center mb-12 sm:mb-0">
           <img 
-            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-search_vaimwh.jpg" 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-search_vaimwh.webp" 
             alt="Certificate 1" 
              
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
           <img 
-            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-analytics_aqlxmj.jpg" 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-analytics_aqlxmj.webp" 
             alt="Certificate 2" 
              
             decoding="async"
             className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
           />
           <img 
-            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-video_wucpvd.jpg" 
+            src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-video_wucpvd.webp" 
             alt="Certificate 3" 
              
             decoding="async"
