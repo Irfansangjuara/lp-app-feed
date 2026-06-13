@@ -317,7 +317,7 @@ function MockupCard() {
       </div>
 
       {/* Main Area */}
-      <div className="flex relative z-10 h-[400px]">
+      <div className="flex relative z-10 h-[460px] sm:h-[480px]">
         {/* Sidebar */}
         <div className="w-16 border-r border-border flex flex-col items-center py-4 gap-6 bg-[#151515] rounded-bl-2xl">
           <div className="w-10 h-10 rounded-xl bg-hi text-primary-foreground flex items-center justify-center font-bold text-lg shadow-[0_0_15px_rgba(251,191,36,0.3)]">
@@ -349,11 +349,11 @@ function MockupCard() {
                 <div className="font-mono text-[10px] text-muted-foreground tracking-widest mb-4 flex items-center gap-2">
                   <span className="text-border">/</span> BANNER GENERATOR
                 </div>
-                <h3 className="text-xl font-bold mb-6 text-foreground tracking-tight">
+                <h3 className="text-xl font-bold mb-4 text-foreground tracking-tight">
                   {scenario.product}
                 </h3>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <Field label="BRAND" value={scenario.brand} />
                   <Field label="HEADLINE" value={scenario.headline} />
 
