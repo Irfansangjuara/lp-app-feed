@@ -481,41 +481,41 @@ function MockupCard() {
 
               {/* Scattered Background Images */}
                 <motion.img 
-                  initial={{ scale: 0.5, opacity: 0, rotate: -20, x: -100, y: -50 }}
-                  animate={{ scale: 1, opacity: 0.5, rotate: -15, x: -80, y: -60 }}
-                  transition={{ delay: 0.1, type: "spring" }}
+                  initial={{ scale: 0.8, opacity: 0, rotate: -20, x: "-80%", y: "-60%" }}
+                  animate={{ scale: 1, opacity: 0.4, rotate: -15, x: "-60%", y: "-50%" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                   src={scenario.images[1]} 
-                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                  className="absolute w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
-                  initial={{ scale: 0.5, opacity: 0, rotate: 20, x: 100, y: -40 }}
-                  animate={{ scale: 1, opacity: 0.5, rotate: 12, x: 80, y: -30 }}
-                  transition={{ delay: 0.2, type: "spring" }}
+                  initial={{ scale: 0.8, opacity: 0, rotate: 20, x: "80%", y: "-50%" }}
+                  animate={{ scale: 1, opacity: 0.4, rotate: 12, x: "60%", y: "-40%" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
                   src={scenario.images[2]} 
-                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                  className="absolute w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
-                  initial={{ scale: 0.5, opacity: 0, rotate: -30, x: -80, y: 80 }}
-                  animate={{ scale: 1, opacity: 0.5, rotate: -8, x: -60, y: 70 }}
-                  transition={{ delay: 0.3, type: "spring" }}
+                  initial={{ scale: 0.8, opacity: 0, rotate: -30, x: "-60%", y: "80%" }}
+                  animate={{ scale: 1, opacity: 0.4, rotate: -15, x: "-50%", y: "60%" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                   src={scenario.images[3]} 
-                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                  className="absolute w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
                 <motion.img 
-                  initial={{ scale: 0.5, opacity: 0, rotate: 30, x: 80, y: 80 }}
-                  animate={{ scale: 1, opacity: 0.5, rotate: 18, x: 60, y: 60 }}
-                  transition={{ delay: 0.4, type: "spring" }}
+                  initial={{ scale: 0.8, opacity: 0, rotate: 30, x: "60%", y: "80%" }}
+                  animate={{ scale: 1, opacity: 0.4, rotate: 15, x: "50%", y: "60%" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
                   src={scenario.images[4]} 
-                  className="absolute w-40 h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
+                  className="absolute w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-2xl object-cover border border-white/10" 
                 />
 
                 {/* Center Main Image */}
                 <motion.img 
-                  initial={{ scale: 0.5, opacity: 0, y: 20 }}
+                  initial={{ scale: 0.8, opacity: 0, y: 20 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, type: "spring", bounce: 0.4 }}
+                  transition={{ delay: 0.4, type: "spring", stiffness: 200, damping: 20 }}
                   src={scenario.images[0]} 
-                  className="relative z-10 w-64 h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover" 
+                  className="relative z-10 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 object-cover" 
                 />
               </motion.div>
             )}
