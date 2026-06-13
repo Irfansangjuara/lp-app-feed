@@ -247,20 +247,18 @@ const SCENARIOS = [
 ];
 
 function MockupCard() {
-  const [phase, setPhase] = useState<"form" | "result">("form");
+  const [phase, setPhase] = useState<"form" | "loading" | "result">("form");
   const [scenarioIndex, setScenarioIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPhase((p) => {
-        if (p === "form") {
-          return "result";
-        } else {
-          setScenarioIndex((si) => (si + 1) % SCENARIOS.length);
-          return "form";
-        }
+        if (p === "form") return "loading";
+        if (p === "loading") return "result";
+        setScenarioIndex((si) => (si + 1) % SCENARIOS.length);
+        return "form";
       });
-    }, 4000); // toggle every 4s
+    }, 2500); // toggle every 2.5s
     return () => clearInterval(interval);
   }, []);
 
@@ -388,18 +386,18 @@ function MockupCard() {
                   transition={{ repeat: Infinity, duration: 2 }}
                   className="rounded-xl bg-gradient-to-br from-hi to-yellow-600 text-primary-foreground px-6 py-3 text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform"
                 >
-                  <Bot className="w-4 h-4" /> Generate
+                  <Image className="w-4 h-4" /> Generate IMG
                 </motion.button>
 
                 {/* Animated Cursor */}
                 {/* Animated Cursor */}
                 <motion.div
                   animate={{ 
-                    x: [100, -10],
-                    y: [120, 15],
-                    scale: [1, 0.9]
+                    x: [100, -10, -10],
+                    y: [120, 15, 15],
+                    scale: [1, 1, 0.8]
                   }}
-                  transition={{ duration: 1.5, ease: "easeOut", delay: 1 }}
+                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
                   className="absolute right-0 top-0 z-50 pointer-events-none drop-shadow-2xl"
                 >
                   <svg
@@ -419,6 +417,46 @@ function MockupCard() {
                 </motion.div>
               </div>
             </motion.div>
+          ) : phase === "loading" ? (
+              <motion.div 
+                key={`loading-${scenarioIndex}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-surface/90 backdrop-blur-sm z-20 rounded-br-2xl"
+              >
+                <div className="relative flex items-center justify-center h-32 w-32">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    className="absolute inset-0 border-2 border-dashed border-hi/30 rounded-full"
+                  />
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    className="z-10 bg-hi p-4 rounded-full shadow-[0_0_20px_rgba(251,191,36,0.4)]"
+                  >
+                    <Bot className="w-8 h-8 text-primary-foreground" />
+                  </motion.div>
+                  <motion.div
+                    animate={{ y: [0, -10, 0], x: [0, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    className="absolute -top-2 -right-2 bg-surface p-2.5 rounded-xl border border-border shadow-xl z-20"
+                  >
+                    <Image className="w-5 h-5 text-muted-foreground" />
+                  </motion.div>
+                </div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="mt-6 font-mono text-[10px] font-bold tracking-widest text-hi flex items-center gap-2 bg-hi/10 px-4 py-1.5 rounded-full border border-hi/20"
+                >
+                  <span className="w-2 h-2 rounded-full bg-hi animate-pulse" />
+                  GENERATING VISUAL...
+                </motion.div>
+              </motion.div>
           ) : (
               <motion.div 
                 key={`result-${scenarioIndex}`}
@@ -604,7 +642,7 @@ function CarouselFeeds() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
+    }, 1500);
     return () => clearInterval(timer);
   }, [images.length]);
 
@@ -647,7 +685,7 @@ function CarouselFeeds() {
                 <FileText className="w-4 h-4 text-hi" /> Template News
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-hi" /> Layout variatif
+                <Image className="w-4 h-4 text-hi" /> Layout variatif
               </div>
             </div>
 
@@ -1383,7 +1421,7 @@ function WhyChange() {
       desc: "Tool AI sembarangan ujungnya hasil aneh, warna meleset, layout berantakan.",
     },
     {
-      icon: <Sparkles className="w-5 h-5" />,
+      icon: <Image className="w-5 h-5" />,
       num: "04/04",
       title: "Gak ngerti istilah desain",
       desc: "Tipografi? Composition? Color grading? Kamu cuma mau hasil yang clean dan jualan.",
@@ -1463,7 +1501,7 @@ function TheAnswer() {
       text: "11 mode kerja: Banner · Carousel · Thumbnail · Typography · Copy · Face Card · Menu F&B · Logo · Try-On · Review · Storyboard",
     },
     {
-      icon: <Sparkles className="w-4 h-4 text-hi" />,
+      icon: <Image className="w-4 h-4 text-hi" />,
       text: "Output siap upload — tanpa edit manual, tanpa retouch",
     },
     {
@@ -1890,7 +1928,7 @@ function Pricing() {
 
               <a
                 href={CHECKOUT_URL}
-                className="mt-8 w-full inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-6 py-4 text-base font-semibold hover:opacity-90 transition"
+                className="mt-8 w-full inline-flex justify-center items-center gap-2 rounded-xl bg-hi text-primary-foreground px-4 py-4 text-[clamp(13px,4vw,16px)] whitespace-nowrap font-bold hover:opacity-90 transition"
               >
                 Klaim Early Access Sekarang →
               </a>
@@ -2038,59 +2076,59 @@ function Footer() {
             src="https://res.cloudinary.com/dceu5m3fm/image/upload/f_auto,q_auto:best,dpr_auto,c_limit,w_1200/v1774617869/poster_copilot_marketing_dynamic_v2_ylzscn.png"
             alt="Sponsor 1"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            className="w-full object-cover max-w-full lg:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775534181/Profil_13_qg0d40.png"
             alt="Sponsor 2"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-2xl bg-white p-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            className="w-full object-cover max-w-full lg:max-w-[280px] h-auto rounded-2xl bg-white p-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/q_auto,f_auto,dpr_auto,w_400/v1775800852/IG_1_bfuux9.png"
             alt="Sponsor 3"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            className="w-full object-cover max-w-full lg:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109356/profile-cv-irfan_nyyt5o.webp"
             alt="Sponsor 4"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            className="w-full object-cover max-w-full lg:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_400/v1770109782/Badge_nfryio.png"
             alt="Sponsor 5"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            className="w-full object-cover max-w-full lg:max-w-[280px] h-auto rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
           />
         </div>
 
         {/* Baris 2: Sertifikat Google dalam 2 kolom grid */}
-        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-6 sm:gap-4 max-w-full sm:max-w-[500px] mx-auto items-center mb-12 sm:mb-0">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-4 w-full lg:max-w-[500px] mx-auto items-center mb-12 sm:mb-0">
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-search_vaimwh.jpg"
             alt="Certificate 1"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+            className="w-full object-cover max-w-full lg:max-w-full mx-auto h-auto rounded-lg shadow-md"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-analytics_aqlxmj.jpg"
             alt="Certificate 2"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+            className="w-full object-cover max-w-full lg:max-w-full mx-auto h-auto rounded-lg shadow-md"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109353/cert-google-ads-video_wucpvd.jpg"
             alt="Certificate 3"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+            className="w-full object-cover max-w-full lg:max-w-full mx-auto h-auto rounded-lg shadow-md"
           />
           <img
             src="https://res.cloudinary.com/dgl7rkxfa/image/upload/f_auto,q_auto,dpr_auto,w_500/v1770109355/cert-google-gemini_aszwll.png"
             alt="Certificate 4"
             decoding="async"
-            className="w-full max-w-[240px] sm:max-w-full mx-auto h-auto rounded-lg"
+            className="w-full object-cover max-w-full lg:max-w-full mx-auto h-auto rounded-lg shadow-md"
           />
         </div>
       </div>
