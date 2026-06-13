@@ -1,0 +1,35 @@
+name: Deploy offer-app-feed to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: |
+          ssh-keyscan -H 103.47.227.59 >> ~/.ssh/known_hosts
+
+      - name: Deploy ke VPS
+        run: |
+          ssh root@103.47.227.59 << 'ENDSSH'
+            set -e
+            cd /var/www/offer-app-feed
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart offer-app-feed --update-env
+            echo "✅ Deploy offer-app-feed selesai: $(date)"
+          ENDSSH
