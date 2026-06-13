@@ -334,7 +334,7 @@ function MockupCard() {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 relative overflow-hidden bg-surface/40 rounded-br-2xl">
+        <div className="flex-1 relative bg-surface/40 rounded-br-2xl">
           <AnimatePresence mode="wait">
             {phase === "form" ? (
               <motion.div 
@@ -401,8 +401,7 @@ function MockupCard() {
                   className="absolute right-0 top-0 z-50 pointer-events-none drop-shadow-2xl"
                 >
                   <svg
-                    width="24"
-                    height="36"
+                    className="w-4 h-6 sm:w-5 sm:h-7 lg:w-6 lg:h-9"
                     viewBox="0 0 24 36"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -424,7 +423,7 @@ function MockupCard() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, filter: "blur(10px)" }}
                 transition={{ duration: 0.4 }}
-                className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-surface/90 backdrop-blur-sm z-20 rounded-br-2xl"
+                className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-surface/90 backdrop-blur-sm z-20 rounded-br-2xl overflow-hidden"
               >
                 <div className="relative flex items-center justify-center h-32 w-32">
                   <motion.div
@@ -464,7 +463,7 @@ function MockupCard() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, filter: "blur(10px)" }}
                 transition={{ duration: 0.5 }}
-                className="absolute inset-0 flex items-center justify-center p-4 bg-[#111]"
+                className="absolute inset-0 flex items-center justify-center p-4 bg-[#111] rounded-br-2xl overflow-hidden"
               >
                 {/* Result Pill */}
                 <motion.div 
